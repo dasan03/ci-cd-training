@@ -1,0 +1,90 @@
+Compétences mises en œuvre : 
+• Intégrer les pratiques de Test Driven Development (TDD) en utilisant des frameworks de tests automatisés. 
+• Intégrer les tests fonctionnels et non fonctionnels automatisés dans les pipelines CI/CD. 
+• Intégrer des pratiques de sécurité DevSecOps dans le cycle de développement. 
+• Optimiser les développements en suivant les pratiques de Clean Code. 
+• Rédiger et maintenir une documentation technique complète et accessible. 
+• Surveiller et maintenir les systèmes automatisés pour garantir leur performance et leur fiabilité. 
+
+Contenu détaillé par module  :
+
+Module 1 : Fondamentaux de l’automatisation des tests et CI/CD 
+Objectifs du module : 
+• Comprendre les concepts de CI/CD et l’importance de l’automatisation des tests. 
+• Découvrir les différents types de tests automatisés et leur rôle dans un pipeline CI/CD. 
+Matériel et prérequis : 
+• Environnement de développement avec GitHub Actions, GitLab CI/CD, Jenkins, Azure DevOps. 
+• Connaissance de base en scripting (Bash, Python, JavaScript). 
+• Docker et Kubernetes installés pour l’orchestration. 
+Programme : 
+1. Introduction à l'automatisation des tests : 
+a. Différences entre tests manuels et tests automatisés. 
+b. Catégories de tests : unitaires, fonctionnels, E2E, non fonctionnels, performance. 
+2. Mise en place d'un pipeline CI/CD de base : 
+a. Intégration des tests dans le cycle CI/CD. 
+b. Exécution de tests en parallèle et en conteneurs. 
+3. Outils et bonnes pratiques : 
+a. Introduction aux outils : Selenium, Cypress, Playwright, PyTest, JUnit. 
+b. Structuration des tests pour un CI/CD efficace. 
+
+Module 2 : Intelligence artificielle et automatisation des tests 
+Objectifs du module : 
+• Utiliser l’IA pour générer et améliorer les tests automatisés. 
+• Déployer des modèles d’apprentissage automatique pour optimiser la couverture des tests. 
+Matériel et prérequis : 
+• Outils de test basés sur l’IA : Testim, Mabl, Applitools. 
+• Notions de machine learning et NLP (facultatif). 
+• Environnement cloud ou local pour exécuter des modèles d’IA. 
+Programme : 
+1. Automatisation des tests avec l’IA : 
+a. Génération automatique de cas de test avec des modèles NLP. 
+b. Détection automatique des anomalies dans les logs et exécutions de tests. 
+2. Optimisation des tests avec le machine learning : 
+a. Apprentissage à partir des erreurs et prédiction des zones à risque. 
+b. Analyse des métriques de test pour améliorer la stratégie de test. 
+3. Expérimentation avec des outils IA-powered : 
+a. Configuration et tests avec Testim, Applitools, Mabl. 
+b. Automatisation du testing visuel avec l’IA. 
+ 
+Module 3 : Tests fonctionnels et non fonctionnels dans un pipeline CI/CD 
+Objectifs du module : 
+• Exécuter des tests fonctionnels et non fonctionnels dans un pipeline automatisé. 
+• Assurer la qualité logicielle en intégrant des tests de sécurité et de performance. 
+Matériel et prérequis : 
+• Environnements de test cloud (SauceLabs, BrowserStack). 
+• Frameworks de test de charge (JMeter, Gatling). 
+• Outils de scan de sécurité (OWASP ZAP, Burp Suite). 
+Programme : 
+1. Tests fonctionnels automatisés : 
+a. Tests UI avec Selenium, Cypress. 
+b. Tests API avec Postman, RestAssured. 
+2. Tests de performance et de charge : 
+a. Simulation de charge avec JMeter. 
+b. Monitoring des temps de réponse. 
+3. Tests de sécurité automatisés : 
+a. Scan des vulnérabilités avec OWASP ZAP. 
+b. Analyse des dépendances (Snyk, Dependabot). 
+ 
+Module 4 : Documentation, reporting et monitoring des tests 
+Objectifs du module : 
+• Rédiger une documentation claire et détaillée des tests. 
+• Générer des rapports de tests automatisés pour un suivi efficace. 
+• Mettre en place un monitoring des tests pour anticiper les régressions. 
+Matériel et prérequis : 
+• Outils de reporting : Allure Report, Extent Reports. 
+• Solutions de monitoring et alerting (Prometheus, Grafana, ELK Stack). 
+• Systèmes de documentation collaboratifs (Confluence, Notion). 
+Programme : 
+1. Documentation des tests automatisés : 
+a. Structurer et versionner la documentation des tests. 
+b. Automatiser la mise à jour des documentations avec les tests. 
+2. Reporting et analyse des résultats de tests : 
+a. Génération de rapports interactifs. 
+b. Analyse des tendances et prédiction des échecs. 
+3. Mise en place d’un système de monitoring des tests : 
+a. Intégration de dashboards avec Prometheus et Grafana. 
+b. Configuration des alertes pour prévenir des régressions. 
+ 
+Évaluation en cours de formation (ECF) 
+Épreuve finale : 
+• QCM basé sur les compétences mises en œuvre.  

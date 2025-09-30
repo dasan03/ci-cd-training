@@ -1,0 +1,50 @@
+name: CI Pipeline
+
+# Déclencheurs du workflow
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+# Variables d'environnement globales
+env:
+  NODE_VERSION: '18'
+
+jobs:
+  # Job de test et validation
+  test:
+    name: Tests et Validation
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Récupération du code source
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      # Configuration de Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      # Installation des dépendances
+      - name: Install dependencies
+        run: npm ci
+      
+      # Vérification du code avec ESLint
+      - name: Run linting
+        run: npm run lint
+      
+      # Exécution des tests unitaires
+      - name: Run unit tests
+        run: npm run test:coverage
+      
+      # Upload du rapport de couverture
+      - name: Upload coverage reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+          retention-days: 30

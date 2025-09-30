@@ -1,0 +1,197 @@
+version: '3.8'
+
+services:
+  # Service MongoDB partagé pour tous les tests
+  mongodb-parallel:
+    image: mongo:6.0-alpine
+    container_name: mongodb-parallel
+    environment:
+      MONGO_INITDB_DATABASE: todoapp_parallel
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_parallel_data:/data/db
+      - ./scripts/init-mongo-parallel.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    networks:
+      - parallel-test-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+
+  # Service de base pour les tests parallèles
+  test-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile.parallel
+    environment:
+      NODE_ENV: test
+      MONGODB_URI: mongodb://mongodb-parallel:27017/todoapp_parallel
+      JEST_WORKER_ID: "${WORKER_ID:-1}"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - test_results:/app/test-results
+    networks:
+      - parallel-test-network
+    depends_on:
+      mongodb-parallel:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
+
+  # Tests unitaires parallèles
+  unit-tests-1:
+    extends: test-runner
+    container_name: unit-tests-1
+    environment:
+      NODE_ENV: test
+      TEST_TYPE: unit
+      JEST_WORKER_ID: "unit-1"
+    command: npm run test:unit -- --outputFile=test-results/unit-1.json
+    
+  unit-tests-2:
+    extends: test-runner
+    container_name: unit-tests-2
+    environment:
+      NODE_ENV: test
+      TEST_TYPE: unit
+      JEST_WORKER_ID: "unit-2"
+    command: npm run test:unit -- --outputFile=test-results/unit-2.json
+
+  unit-tests-3:
+    extends: test-runner
+    container_name: unit-tests-3
+    environment:
+      NODE_ENV: test
+      TEST_TYPE: unit
+      JEST_WORKER_ID: "unit-3"
+    command: npm run test:unit -- --outputFile=test-results/unit-3.json
+
+  unit-tests-4:
+    extends: test-runner
+    container_name: unit-tests-4
+    environment:
+      NODE_ENV: test
+      TEST_TYPE: unit
+      JEST_WORKER_ID: "unit-4"
+    command: npm run test:unit -- --outputFile=test-results/unit-4.json
+
+  # Tests d'intégration parallèles
+  integration-tests-1:
+    extends: test-runner
+    container_name: integration-tests-1
+    environment:
+      NODE_ENV: test
+      TEST_TYPE: integration
+      JEST_WORKER_ID: "integration-1"
+      MONGODB_URI: mongodb://mongodb-parallel:27017/todoapp_parallel_int1
+    command: npm run test:integration -- --outputFile=test-results/integration-1.json
+
+  integration-tests-2:
+    extends: test-runner
+    container_name: integration-tests-2
+    environment:
+      NODE_ENV: test
+      TEST_TYPE: integration
+      JEST_WORKER_ID: "integration-2"
+      MONGODB_URI: mongodb://mongodb-parallel:27017/todoapp_parallel_int2
+    command: npm run test:integration -- --outputFile=test-results/integration-2.json
+
+  # Tests de performance (séquentiels)
+  performance-tests:
+    extends: test-runner
+    container_name: performance-tests
+    environment:
+      NODE_ENV: test
+      TEST_TYPE: performance
+      JEST_WORKER_ID: "performance-1"
+      MONGODB_URI: mongodb://mongodb-parallel:27017/todoapp_parallel_perf
+    command: npm run test:performance -- --outputFile=test-results/performance.json
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '1.0'
+
+  # Tests de charge parallèles
+  load-tests-1:
+    extends: test-runner
+    container_name: load-tests-1
+    environment:
+      NODE_ENV: test
+      TEST_TYPE: load
+      JEST_WORKER_ID: "load-1"
+      MONGODB_URI: mongodb://mongodb-parallel:27017/todoapp_parallel_load1
+    command: npm run test:load -- --outputFile=test-results/load-1.json
+
+  load-tests-2:
+    extends: test-runner
+    container_name: load-tests-2
+    environment:
+      NODE_ENV: test
+      TEST_TYPE: load
+      JEST_WORKER_ID: "load-2"
+      MONGODB_URI: mongodb://mongodb-parallel:27017/todoapp_parallel_load2
+    command: npm run test:load -- --outputFile=test-results/load-2.json
+
+  # Service de collecte des résultats
+  test-collector:
+    image: node:18-alpine
+    container_name: test-collector
+    volumes:
+      - test_results:/results
+      - ./scripts:/scripts
+    networks:
+      - parallel-test-network
+    command: node /scripts/collect-results.js
+    depends_on:
+      - unit-tests-1
+      - unit-tests-2
+      - unit-tests-3
+      - unit-tests-4
+      - integration-tests-1
+      - integration-tests-2
+      - performance-tests
+      - load-tests-1
+      - load-tests-2
+
+  # Service de monitoring des ressources
+  resource-monitor:
+    image: node:18-alpine
+    container_name: resource-monitor
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./scripts:/scripts
+      - test_results:/results
+    networks:
+      - parallel-test-network
+    command: node /scripts/monitor-resources.js
+    privileged: true
+
+volumes:
+  mongodb_parallel_data:
+    driver: local
+  test_results:
+    driver: local
+
+networks:
+  parallel-test-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

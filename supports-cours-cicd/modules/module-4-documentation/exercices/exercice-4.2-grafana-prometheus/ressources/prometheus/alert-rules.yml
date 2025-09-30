@@ -1,0 +1,63 @@
+groups:
+- name: test-alerts
+  rules:
+  - alert: HighTestFailureRate
+    expr: rate(tests_total{status="failed"}[5m]) / rate(tests_total[5m]) > 0.1
+    for: 2m
+    labels:
+      severity: warning
+      team: qa
+    annotations:
+      summary: "High test failure rate detected"
+      description: "Test failure rate is {{ $value | humanizePercentage }} over the last 5 minutes"
+      runbook_url: "https://wiki.company.com/runbooks/high-test-failure-rate"
+
+  - alert: SlowTestExecution
+    expr: histogram_quantile(0.95, rate(test_duration_seconds_bucket[5m])) > 60
+    for: 5m
+    labels:
+      severity: warning
+      team: qa
+    annotations:
+      summary: "Tests are running slowly"
+      description: "95th percentile test execution time is {{ $value }}s"
+
+  - alert: TestSuiteDown
+    expr: up{job="test-metrics"} == 0
+    for: 1m
+    labels:
+      severity: critical
+      team: devops
+    annotations:
+      summary: "Test suite monitoring is down"
+      description: "The test metrics service is not responding"
+
+  - alert: HighTestFlakiness
+    expr: test_flakiness_rate > 5
+    for: 10m
+    labels:
+      severity: warning
+      team: qa
+    annotations:
+      summary: "High test flakiness detected"
+      description: "Test suite {{ $labels.suite }} has {{ $value }}% flakiness rate"
+
+  - alert: LowTestCoverage
+    expr: test_coverage_percent{type="line"} < 70
+    for: 5m
+    labels:
+      severity: warning
+      team: dev
+    annotations:
+      summary: "Low test coverage detected"
+      description: "Line coverage is {{ $value }}%, below the 70% threshold"
+
+  - alert: TestQueueBacklog
+    expr: test_queue_size > 20
+    for: 3m
+    labels:
+      severity: warning
+      team: devops
+    annotations:
+      summary: "Test queue backlog detected"
+      description: "{{ $value }} tests are waiting in the queue"

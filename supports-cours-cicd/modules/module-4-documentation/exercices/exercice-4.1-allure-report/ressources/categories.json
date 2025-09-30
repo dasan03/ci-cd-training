@@ -1,0 +1,25 @@
+[
+  {
+    "name": "Ignored tests",
+    "matchedStatuses": ["skipped"]
+  },
+  {
+    "name": "Infrastructure problems",
+    "matchedStatuses": ["broken", "failed"],
+    "messageRegex": ".*timeout.*|.*connection.*|.*network.*|.*ECONNREFUSED.*"
+  },
+  {
+    "name": "Outdated tests",
+    "matchedStatuses": ["broken"],
+    "traceRegex": ".*NoSuchElementException.*|.*ElementNotFound.*"
+  },
+  {
+    "name": "Flaky tests",
+    "matchedStatuses": ["failed", "broken"],
+    "messageRegex": ".*flaky.*|.*intermittent.*|.*random.*"
+  },
+  {
+    "name": "Product defects",
+    "matchedStatuses": ["failed"]
+  }
+]

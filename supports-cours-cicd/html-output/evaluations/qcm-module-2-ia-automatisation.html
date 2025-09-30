@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCM Module 2.1 - IA et Automatisation des Tests - Formation CI/CD</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1><a href="../index.html">Formation CI/CD</a></h1>
+            </div>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="../index.html">Accueil</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="hero-section">
+                <div class="module-badge">QCM INTERACTIF</div>
+                <h1 class="module-title">QCM Module 2.1 - IA et Automatisation des Tests</h1>
+                <p class="module-description">Évaluation des connaissances sur l'utilisation de l'intelligence artificielle pour l'automatisation des tests, les outils IA-powered et leurs applications pratiques</p>
+                <div class="module-meta">
+                    <span class="duration">⏱️ Durée: 25 minutes</span>
+                    <span class="difficulty">📊 Seuil: 70%</span>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <div class="qcm-instructions">
+                    <h3>📋 Instructions</h3>
+                    <ul>
+                        <li>Lisez attentivement chaque question avant de répondre</li><li>Pour les questions à choix multiples, une seule réponse est correcte</li><li>Pour les questions vrai/faux, cochez la case correspondante</li><li>Pour les questions d'association, reliez chaque élément de gauche à son correspondant de droite</li><li>Vous pouvez revenir sur vos réponses avant la validation finale</li><li>Certaines questions portent sur des concepts avancés d'IA appliquée aux tests</li>
+                    </ul>
+                    <p><strong>Barème:</strong> Chaque question est notée selon sa difficulté : facile (1 point), moyen (1,5 points), difficile (2 points). Le seuil de réussite est fixé à 70%. L'accent est mis sur la compétence C19 (IA dans les tests).</p>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <div class="qcm-container" data-qcm-data='{"id":"qcm-module-2-ia-automatisation","titre":"QCM Module 2.1 - IA et Automatisation des Tests","description":"Évaluation des connaissances sur l'utilisation de l'intelligence artificielle pour l'automatisation des tests, les outils IA-powered et leurs applications pratiques","duree_minutes":25,"module":"module-2","section":"ia-automatisation","competences":["C8","C17","C19"],"questions":[{"id":"q1","type":"choix-multiple","question":"Quel est l'avantage principal des Smart Locators dans les outils de test IA comme Testim ?","options":["Ils utilisent plusieurs stratégies de localisation pour améliorer la robustesse des tests","Ils permettent d'exécuter les tests plus rapidement","Ils réduisent la consommation de ressources système","Ils génèrent automatiquement des rapports de test"],"reponse_correcte":0,"explication":"Les Smart Locators utilisent plusieurs stratégies (texte, position, attributs, similarité visuelle) pour localiser les éléments, ce qui rend les tests plus robustes face aux changements d'interface. Si une stratégie échoue, les autres peuvent prendre le relais.","competence":"C19","difficulte":"moyen"},{"id":"q2","type":"vrai-faux","question":"L'auto-healing dans les tests automatisés peut masquer de vrais problèmes d'interface utilisateur.","reponse_correcte":true,"explication":"Vrai. L'auto-healing peut parfois réparer automatiquement des sélecteurs cassés qui indiquent en réalité des changements importants dans l'interface. Il est crucial de surveiller les événements d'auto-healing et de valider qu'ils ne masquent pas des régressions réelles.","competence":"C19","difficulte":"difficile"},{"id":"q3","type":"choix-multiple","question":"Dans le contexte des tests visuels avec IA, que signifie 'baseline management' ?","options":["La gestion des images de référence pour la comparaison visuelle","La configuration des seuils de performance des tests","L'optimisation de la vitesse d'exécution des tests","La gestion des versions du code de test"],"reponse_correcte":0,"explication":"Le baseline management consiste à gérer les images de référence (baselines) utilisées pour comparer l'état actuel de l'interface avec l'état attendu. Ces baselines doivent être mises à jour lorsque des changements visuels légitimes sont apportés.","competence":"C17","difficulte":"moyen"},{"id":"q4","type":"association","question":"Associez chaque outil IA-powered à sa spécialité principale :","elements_gauche":["Testim","Applitools Eyes","Mabl"],"elements_droite":["Tests visuels et détection de régressions d'interface","Plateforme complète de tests avec IA intégrée","Tests sans code avec smart locators et auto-healing"],"associations_correctes":[[0,2],[1,0],[2,1]],"explication":"Testim se spécialise dans les tests sans code avec smart locators, Applitools Eyes dans les tests visuels automatisés, et Mabl propose une plateforme complète intégrant diverses fonctionnalités IA pour les tests.","competence":"C19","difficulte":"moyen"},{"id":"q5","type":"choix-multiple","question":"Quel algorithme est couramment utilisé pour la détection d'anomalies dans les logs d'application ?","options":["Linear Regression","Isolation Forest","Decision Tree","K-Means Clustering"],"reponse_correcte":1,"explication":"Isolation Forest est particulièrement efficace pour la détection d'anomalies car il isole les points anormaux en construisant des arbres de décision aléatoires. Les anomalies nécessitent moins de divisions pour être isolées que les points normaux.","competence":"C19","difficulte":"difficile"},{"id":"q6","type":"vrai-faux","question":"Les outils de test IA peuvent complètement éliminer le besoin de maintenance des tests automatisés.","reponse_correcte":false,"explication":"Faux. Bien que les outils IA réduisent significativement la maintenance (auto-healing, smart locators), ils ne l'éliminent pas complètement. Il faut toujours surveiller les réparations automatiques, mettre à jour les baselines visuelles, et ajuster les modèles selon l'évolution de l'application.","competence":"C17","difficulte":"moyen"},{"id":"q7","type":"choix-multiple","question":"Dans un système de détection d'anomalies basé sur l'IA, que représente le 'contamination rate' ?","options":["Le pourcentage d'erreurs acceptables dans les prédictions","La proportion estimée d'anomalies dans les données d'entraînement","Le taux de faux positifs généré par le modèle","La vitesse de traitement des données en temps réel"],"reponse_correcte":1,"explication":"Le contamination rate représente la proportion estimée d'anomalies dans le dataset d'entraînement. Ce paramètre aide l'algorithme à calibrer sa sensibilité : un taux plus élevé rend le modèle moins sensible aux anomalies.","competence":"C19","difficulte":"difficile"},{"id":"q8","type":"choix-multiple","question":"Quel est le principal défi lors de l'intégration d'outils de test IA dans un pipeline CI/CD ?","options":["La configuration des tokens d'authentification","La gestion des résultats non-déterministes et des faux positifs","L'installation des dépendances logicielles","La compatibilité avec les navigateurs web"],"reponse_correcte":1,"explication":"Le principal défi est la gestion des résultats non-déterministes. Les outils IA peuvent parfois produire des résultats différents pour les mêmes conditions, générant des faux positifs qui peuvent bloquer le pipeline. Il faut configurer des seuils appropriés et des mécanismes de validation.","competence":"C8","difficulte":"difficile"},{"id":"q9","type":"vrai-faux","question":"Les tests visuels automatisés avec IA sont généralement plus rapides que les tests fonctionnels traditionnels.","reponse_correcte":false,"explication":"Faux. Les tests visuels sont généralement plus lents car ils nécessitent de capturer des screenshots, de les traiter avec des algorithmes de computer vision, et de les comparer avec les baselines. Ils sont cependant plus efficaces pour détecter les régressions visuelles.","competence":"C17","difficulte":"facile"},{"id":"q10","type":"choix-multiple","question":"Quelle métrique est la plus importante pour évaluer l'efficacité d'un système d'auto-healing ?","options":["Le nombre total de tests exécutés","Le taux de succès des réparations automatiques","La vitesse d'exécution des tests","Le nombre de développeurs utilisant l'outil"],"reponse_correcte":1,"explication":"Le taux de succès des réparations automatiques (pourcentage de réparations qui corrigent effectivement le problème sans introduire de faux positifs) est la métrique clé pour évaluer l'efficacité de l'auto-healing. Un taux élevé indique que le système répare correctement les tests cassés.","competence":"C19","difficulte":"moyen"}],"scoring":{"total_points":100,"seuil_reussite":70,"ponderation_par_difficulte":{"facile":1,"moyen":1.5,"difficile":2},"repartition_competences":{"C8":20,"C17":30,"C19":50}},"instructions":{"duree":"Vous disposez de 25 minutes pour répondre aux 10 questions.","consignes":["Lisez attentivement chaque question avant de répondre","Pour les questions à choix multiples, une seule réponse est correcte","Pour les questions vrai/faux, cochez la case correspondante","Pour les questions d'association, reliez chaque élément de gauche à son correspondant de droite","Vous pouvez revenir sur vos réponses avant la validation finale","Certaines questions portent sur des concepts avancés d'IA appliquée aux tests"],"bareme":"Chaque question est notée selon sa difficulté : facile (1 point), moyen (1,5 points), difficile (2 points). Le seuil de réussite est fixé à 70%. L'accent est mis sur la compétence C19 (IA dans les tests)."}}'>
+                    <!-- Le QCM sera généré dynamiquement par JavaScript -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Formation CI/CD - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/scripts.js"></script>
+</body>
+</html>

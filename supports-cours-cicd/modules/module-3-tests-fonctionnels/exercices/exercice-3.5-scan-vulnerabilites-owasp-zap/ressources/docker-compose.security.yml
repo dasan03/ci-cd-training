@@ -1,0 +1,150 @@
+version: '3.8'
+
+services:
+  zap:
+    image: owasp/zap2docker-stable
+    container_name: owasp-zap
+    ports:
+      - "8090:8080"
+    volumes:
+      - ./security/zap-config:/zap/config
+      - ./security/zap-reports:/zap/wrk
+      - ./security/zap-scripts:/zap/scripts
+    command: >
+      zap.sh -daemon 
+      -host 0.0.0.0 
+      -port 8080 
+      -config api.addrs.addr.name=.* 
+      -config api.addrs.addr.regex=true
+      -config api.key=changeme123
+    networks:
+      - security-net
+    restart: unless-stopped
+
+  zap-baseline:
+    image: owasp/zap2docker-stable
+    volumes:
+      - ./security/zap-reports:/zap/wrk
+    command: >
+      zap-baseline.py 
+      -t http://host.docker.internal:3000 
+      -r baseline-report.html 
+      -x baseline-report.xml
+      -J baseline-report.json
+    depends_on:
+      - zap
+    networks:
+      - security-net
+    profiles:
+      - baseline
+
+  zap-full-scan:
+    image: owasp/zap2docker-stable
+    volumes:
+      - ./security/zap-reports:/zap/wrk
+      - ./security/zap-config:/zap/config
+    command: >
+      zap-full-scan.py 
+      -t http://host.docker.internal:3000 
+      -r full-scan-report.html 
+      -x full-scan-report.xml
+      -J full-scan-report.json
+      -z "-configfile /zap/config/policies/ecommerce-policy.policy"
+    depends_on:
+      - zap
+    networks:
+      - security-net
+    profiles:
+      - full-scan
+
+  zap-api-scan:
+    image: owasp/zap2docker-stable
+    volumes:
+      - ./security/zap-reports:/zap/wrk
+      - ./security/api-specs:/zap/api-specs
+    command: >
+      zap-api-scan.py 
+      -t http://host.docker.internal:3000/api-docs 
+      -f openapi
+      -r api-scan-report.html 
+      -x api-scan-report.xml
+      -J api-scan-report.json
+    depends_on:
+      - zap
+    networks:
+      - security-net
+    profiles:
+      - api-scan
+
+  # Application de test vulnérable pour démonstration
+  dvwa:
+    image: vulnerables/web-dvwa
+    container_name: dvwa
+    ports:
+      - "8081:80"
+    environment:
+      - MYSQL_HOSTNAME=dvwa-db
+      - MYSQL_DATABASE=dvwa
+      - MYSQL_USERNAME=dvwa
+      - MYSQL_PASSWORD=p@ssw0rd
+    networks:
+      - security-net
+    depends_on:
+      - dvwa-db
+    profiles:
+      - demo
+
+  dvwa-db:
+    image: mariadb:10
+    container_name: dvwa-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=p@ssw0rd
+      - MYSQL_DATABASE=dvwa
+      - MYSQL_USER=dvwa
+      - MYSQL_PASSWORD=p@ssw0rd
+    volumes:
+      - dvwa_db_data:/var/lib/mysql
+    networks:
+      - security-net
+    profiles:
+      - demo
+
+  # Nikto pour scan de vulnérabilités web complémentaire
+  nikto:
+    image: sullo/nikto
+    container_name: nikto
+    volumes:
+      - ./security/nikto-reports:/tmp
+    command: >
+      -h http://host.docker.internal:3000
+      -output /tmp/nikto-report.html
+      -Format htm
+    networks:
+      - security-net
+    profiles:
+      - nikto
+
+  # SQLMap pour tests d'injection SQL
+  sqlmap:
+    image: paoloo/sqlmap
+    container_name: sqlmap
+    volumes:
+      - ./security/sqlmap-reports:/root/.sqlmap
+    command: >
+      -u "http://host.docker.internal:3000/api/products/search?q=test"
+      --batch
+      --crawl=2
+      --forms
+      --risk=3
+      --level=5
+    networks:
+      - security-net
+    profiles:
+      - sqlmap
+
+volumes:
+  dvwa_db_data:
+
+networks:
+  security-net:
+    driver: bridge

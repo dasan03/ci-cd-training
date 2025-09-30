@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCM Final - Évaluation CI/CD</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .info-panel {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff6b6b;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 18px;
+            z-index: 1000;
+        }
+        
+        .question-container {
+            background: white;
+            margin-bottom: 25px;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .question-number {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .module-badge {
+            background: #4ecdc4;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+        
+        .competence-badge {
+            background: #45b7d1;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+        }
+        
+        .question-text {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .options {
+            margin-left: 20px;
+        }
+        
+        .option {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option input {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+        
+        .option label {
+            cursor: pointer;
+            line-height: 1.5;
+        }
+        
+        .association-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .association-column {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+        }
+        
+        .association-item {
+            padding: 8px;
+            margin-bottom: 8px;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        
+        .association-item:hover {
+            border-color: #667eea;
+        }
+        
+        .association-item.selected {
+            border-color: #667eea;
+            background: #e3f2fd;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .submit-section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .results {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: none;
+        }
+        
+        .score-summary {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .competence-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .competence-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        
+        .competence-score {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>QCM Final - Évaluation CI/CD</h1>
+        <p>Évaluation finale des compétences acquises durant la formation CI/CD de 5 jours</p>
+    </div>
+    
+    <div class="timer" id="timer">
+        ⏱️ <span id="time-remaining">60:00</span>
+    </div>
+    
+    <div class="info-panel">
+        <h3>Instructions</h3>
+        <ul>
+            <li><strong>Durée :</strong> 60 minutes</li>
+            <li><strong>Questions :</strong> 45 questions au total</li>
+            <li><strong>Répartition :</strong> Module 1 (8 questions), Module 2 (15 questions), Module 3 (15 questions), Module 4 (7 questions)</li>
+            <li><strong>Compétences évaluées :</strong> C8, C17, C18, C19, C20, C33</li>
+            <li><strong>Seuil de validation :</strong> 27/45 points (60%)</li>
+        </ul>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress"></div>
+        </div>
+        <p id="progress-text">Question 0 sur 45</p>
+    </div>
+    
+    <form id="qcm-form">
+        <!-- Questions will be loaded here by JavaScript -->
+    </form>
+    
+    <div class="submit-section">
+        <button type="button" class="submit-btn" onclick="submitQCM()">
+            Terminer l'évaluation
+        </button>
+    </div>
+    
+    <div class="results" id="results">
+        <h2>Résultats de l'évaluation</h2>
+        <div class="score-summary">
+            <div class="score-circle" id="score-circle">
+                <span id="final-score">0/45</span>
+            </div>
+            <h3 id="result-status">Résultat</h3>
+            <p id="result-message">Message de résultat</p>
+        </div>
+        
+        <h3>Détail par compétence</h3>
+        <div class="competence-results" id="competence-results">
+            <!-- Competence results will be populated here -->
+        </div>
+        
+        <div style="margin-top: 30px; text-align: center;">
+            <button class="submit-btn" onclick="generateReport()">
+                📄 Générer le rapport ECF
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // QCM Data will be loaded from JSON
+        let qcmData = null;
+        let userAnswers = {};
+        let startTime = new Date();
+        let timeLimit = 60 * 60 * 1000; // 60 minutes in milliseconds
+        
+        // Load QCM data
+        fetch('./qcm-final-evaluation.json')
+            .then(response => response.json())
+            .then(data => {
+                qcmData = data.qcm;
+                loadQuestions();
+                startTimer();
+            })
+            .catch(error => {
+                console.error('Erreur lors du chargement du QCM:', error);
+                // Fallback: use embedded data if JSON fails to load
+                loadFallbackData();
+            });
+        
+        function loadFallbackData() {
+            // Minimal fallback data structure
+            qcmData = {
+                questions: [],
+                scoring: {
+                    total_points: 45,
+                    seuil_validation: 27,
+                    scoring_par_competence: {}
+                }
+            };
+            loadQuestions();
+            startTimer();
+        }
+        
+        function loadQuestions() {
+            const form = document.getElementById('qcm-form');
+            
+            qcmData.questions.forEach((question, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question-container';
+                questionDiv.innerHTML = generateQuestionHTML(question, index);
+                form.appendChild(questionDiv);
+            });
+            
+            updateProgress();
+        }
+        
+        function generateQuestionHTML(question, index) {
+            let optionsHTML = '';
+            
+            switch(question.type) {
+                case 'choix-multiple':
+                    optionsHTML = question.options.map((option, i) => `
+                        <div class="option">
+                            <input type="radio" id="q${question.numero}_${i}" name="q${question.numero}" value="${i}" onchange="updateAnswer(${question.numero}, ${i})">
+                            <label for="q${question.numero}_${i}">${option}</label>
+                        </div>
+                    `).join('');
+                    break;
+                    
+                case 'vrai-faux':
+                    optionsHTML = `
+                        <div class="option">
+                            <input type="radio" id="q${question.numero}_true" name="q${question.numero}" value="true" onchange="updateAnswer(${question.numero}, true)">
+                            <label for="q${question.numero}_true">Vrai</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q${question.numero}_false" name="q${question.numero}" value="false" onchange="updateAnswer(${question.numero}, false)">
+                            <label for="q${question.numero}_false">Faux</label>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'association':
+                    optionsHTML = `
+                        <div class="association-container">
+                            <div class="association-column">
+                                <h4>Éléments à associer :</h4>
+                                ${question.elements_gauche.map((elem, i) => `
+                                    <div class="association-item" data-left="${i}">${elem}</div>
+                                `).join('')}
+                            </div>
+                            <div class="association-column">
+                                <h4>Associer avec :</h4>
+                                ${question.elements_droite.map((elem, i) => `
+                                    <div class="association-item" data-right="${i}">${elem}</div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <input type="hidden" name="q${question.numero}" id="q${question.numero}_associations">
+                    `;
+                    break;
+            }
+            
+            return `
+                <div class="question-header">
+                    <span class="question-number">Question ${question.numero}</span>
+                    <div>
+                        <span class="module-badge">${question.module}</span>
+                        <span class="competence-badge">${question.competence}</span>
+                    </div>
+                </div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">
+                    ${optionsHTML}
+                </div>
+            `;
+        }
+        
+        function updateAnswer(questionNum, answer) {
+            userAnswers[questionNum] = answer;
+            updateProgress();
+        }
+        
+        function updateProgress() {
+            const totalQuestions = qcmData.questions.length;
+            const answeredQuestions = Object.keys(userAnswers).length;
+            const progressPercent = (answeredQuestions / totalQuestions) * 100;
+            
+            document.getElementById('progress').style.width = progressPercent + '%';
+            document.getElementById('progress-text').textContent = `Question ${answeredQuestions} sur ${totalQuestions}`;
+        }
+        
+        function startTimer() {
+            const timerElement = document.getElementById('time-remaining');
+            
+            const updateTimer = () => {
+                const now = new Date();
+                const elapsed = now - startTime;
+                const remaining = Math.max(0, timeLimit - elapsed);
+                
+                if (remaining === 0) {
+                    submitQCM();
+                    return;
+                }
+                
+                const minutes = Math.floor(remaining / 60000);
+                const seconds = Math.floor((remaining % 60000) / 1000);
+                
+                timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                setTimeout(updateTimer, 1000);
+            };
+            
+            updateTimer();
+        }
+        
+        function submitQCM() {
+            if (Object.keys(userAnswers).length < qcmData.questions.length) {
+                if (!confirm('Vous n\'avez pas répondu à toutes les questions. Voulez-vous vraiment terminer l\'évaluation ?')) {
+                    return;
+                }
+            }
+            
+            const results = calculateResults();
+            displayResults(results);
+            
+            // Hide form and show results
+            document.getElementById('qcm-form').style.display = 'none';
+            document.querySelector('.submit-section').style.display = 'none';
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('timer').style.display = 'none';
+        }
+        
+        function calculateResults() {
+            let totalScore = 0;
+            const competenceScores = {};
+            
+            // Initialize competence scores
+            Object.keys(qcmData.scoring.scoring_par_competence).forEach(comp => {
+                competenceScores[comp] = { score: 0, total: 0 };
+            });
+            
+            qcmData.questions.forEach(question => {
+                const userAnswer = userAnswers[question.numero];
+                let isCorrect = false;
+                
+                switch(question.type) {
+                    case 'choix-multiple':
+                        isCorrect = userAnswer === question.reponse_correcte;
+                        break;
+                    case 'vrai-faux':
+                        isCorrect = userAnswer === question.reponse_correcte;
+                        break;
+                    case 'association':
+                        // Simplified association checking
+                        isCorrect = userAnswer && userAnswer.length === question.associations_correctes.length;
+                        break;
+                }
+                
+                if (isCorrect) {
+                    totalScore++;
+                    if (competenceScores[question.competence]) {
+                        competenceScores[question.competence].score++;
+                    }
+                }
+                
+                if (competenceScores[question.competence]) {
+                    competenceScores[question.competence].total++;
+                }
+            });
+            
+            return {
+                totalScore,
+                totalQuestions: qcmData.questions.length,
+                competenceScores,
+                passed: totalScore >= qcmData.scoring.seuil_validation
+            };
+        }
+        
+        function displayResults(results) {
+            const scoreCircle = document.getElementById('score-circle');
+            const finalScore = document.getElementById('final-score');
+            const resultStatus = document.getElementById('result-status');
+            const resultMessage = document.getElementById('result-message');
+            
+            finalScore.textContent = `${results.totalScore}/${results.totalQuestions}`;
+            
+            const percentage = (results.totalScore / results.totalQuestions) * 100;
+            
+            if (results.passed) {
+                scoreCircle.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
+                resultStatus.textContent = 'Évaluation Réussie ✅';
+                resultMessage.textContent = `Félicitations ! Vous avez obtenu ${percentage.toFixed(1)}% et validé l'évaluation.`;
+            } else {
+                scoreCircle.style.background = 'linear-gradient(135deg, #f44336, #d32f2f)';
+                resultStatus.textContent = 'Évaluation Non Validée ❌';
+                resultMessage.textContent = `Vous avez obtenu ${percentage.toFixed(1)}%. Le seuil de validation est de 60%.`;
+            }
+            
+            // Display competence results
+            const competenceResults = document.getElementById('competence-results');
+            Object.entries(results.competenceScores).forEach(([comp, data]) => {
+                const compPercentage = data.total > 0 ? (data.score / data.total) * 100 : 0;
+                const compDiv = document.createElement('div');
+                compDiv.className = 'competence-card';
+                compDiv.innerHTML = `
+                    <h4>${comp}</h4>
+                    <div class="competence-score">${data.score}/${data.total}</div>
+                    <div>${compPercentage.toFixed(1)}%</div>
+                `;
+                competenceResults.appendChild(compDiv);
+            });
+        }
+        
+        function generateReport() {
+            // This would generate an ECF-compliant report
+            alert('Fonctionnalité de génération de rapport ECF à implémenter selon les spécifications officielles.');
+        }
+    </script>
+</body>
+</html>

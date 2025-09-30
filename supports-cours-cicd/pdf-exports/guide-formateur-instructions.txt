@@ -1,0 +1,7 @@
+Pour convertir en PDF:
+1. Ouvrir guide-formateur.html dans un navigateur
+2. Imprimer > Enregistrer au format PDF
+3. Renommer en guide-formateur.pdf
+
+Ou utiliser un outil comme wkhtmltopdf:
+wkhtmltopdf "C:\Users\fredert\Documents\Work\Genesys\Ecoles\ENI\supports-cours-cicd\pdf-exports\guide-formateur.html" "C:\Users\fredert\Documents\Work\Genesys\Ecoles\ENI\supports-cours-cicd\pdf-exports\guide-formateur.pdf"

@@ -1,0 +1,122 @@
+{
+  "qcm": {
+    "id": "qcm-module-4-documentation",
+    "titre": "QCM Module 4 - Documentation et Monitoring",
+    "description": "Évaluation des connaissances acquises sur la documentation des tests, le reporting, le monitoring avec dashboards et les outils Allure, Grafana, Prometheus",
+    "duree_minutes": 15,
+    "module": "module-4",
+    "competences": ["C20", "C33"],
+    "questions": [
+      {
+        "id": "q1",
+        "type": "choix-multiple",
+        "question": "Quel est l'avantage principal d'une documentation structurée des tests automatisés ?",
+        "options": [
+          "Améliorer la maintenabilité et faciliter la collaboration entre équipes",
+          "Réduire le temps d'exécution des tests",
+          "Augmenter automatiquement la couverture de code",
+          "Éliminer le besoin de tests manuels"
+        ],
+        "reponse_correcte": 0,
+        "explication": "Une documentation structurée des tests améliore la maintenabilité en facilitant la compréhension du code de test, accélère l'onboarding des nouveaux développeurs, et permet une meilleure collaboration entre les équipes en créant une base de connaissances partagée.",
+        "competence": "C20",
+        "difficulte": "facile"
+      },
+      {
+        "id": "q2",
+        "type": "vrai-faux",
+        "question": "Allure Report peut uniquement générer des rapports pour les tests JavaScript.",
+        "reponse_correcte": false,
+        "explication": "Faux. Allure Report est un framework multi-langage qui supporte de nombreux langages et frameworks de test : Java (JUnit, TestNG), JavaScript (Jest, Mocha), Python (pytest), C# (NUnit), Ruby (RSpec), et bien d'autres grâce à ses adaptateurs spécialisés.",
+        "competence": "C33",
+        "difficulte": "facile"
+      },
+      {
+        "id": "q3",
+        "type": "choix-multiple",
+        "question": "Dans Prometheus, quel type de métrique est le plus approprié pour mesurer le temps d'exécution des tests ?",
+        "options": [
+          "Counter",
+          "Gauge",
+          "Histogram",
+          "Summary"
+        ],
+        "reponse_correcte": 2,
+        "explication": "Un Histogram est le type de métrique le plus approprié pour mesurer les temps d'exécution car il permet de calculer des percentiles (50e, 95e, 99e) et de visualiser la distribution des valeurs dans des buckets prédéfinis, ce qui est essentiel pour analyser les performances des tests.",
+        "competence": "C33",
+        "difficulte": "moyen"
+      },
+      {
+        "id": "q4",
+        "type": "association",
+        "question": "Associez chaque outil à sa fonction principale dans l'écosystème de monitoring :",
+        "elements_gauche": [
+          "Prometheus",
+          "Grafana",
+          "AlertManager"
+        ],
+        "elements_droite": [
+          "Visualisation de données et création de dashboards",
+          "Collecte et stockage de métriques temporelles",
+          "Gestion et routage des alertes avec notifications"
+        ],
+        "associations_correctes": [
+          [0, 1],
+          [1, 0],
+          [2, 2]
+        ],
+        "explication": "Prometheus collecte et stocke les métriques, Grafana les visualise dans des dashboards interactifs, et AlertManager gère les alertes en les routant vers les bons canaux de notification (Slack, email, etc.).",
+        "competence": "C33",
+        "difficulte": "moyen"
+      },
+      {
+        "id": "q5",
+        "type": "choix-multiple",
+        "question": "Quelle approche de monitoring est recommandée pour détecter les problèmes avant qu'ils impactent la production ?",
+        "options": [
+          "Monitoring réactif avec analyse post-mortem",
+          "Monitoring proactif avec alertes préventives",
+          "Monitoring manuel quotidien",
+          "Monitoring uniquement en cas d'incident"
+        ],
+        "reponse_correcte": 1,
+        "explication": "Le monitoring proactif avec alertes préventives permet de détecter les dégradations de performance, l'augmentation des taux d'échec ou autres anomalies avant qu'elles n'impactent les utilisateurs finaux, permettant une intervention rapide et préventive.",
+        "competence": "C33",
+        "difficulte": "moyen"
+      },
+      {
+        "id": "q6",
+        "type": "vrai-faux",
+        "question": "Les rapports de tests doivent être identiques pour tous les publics (développeurs, managers, équipe QA).",
+        "reponse_correcte": false,
+        "explication": "Faux. Les rapports doivent être adaptés à leur audience : les développeurs ont besoin de détails techniques et de stack traces, les managers de métriques de haut niveau et de tendances, et l'équipe QA d'analyses de couverture fonctionnelle et de patterns d'échec.",
+        "competence": "C20",
+        "difficulte": "facile"
+      }
+    ],
+    "scoring": {
+      "total_points": 100,
+      "seuil_reussite": 70,
+      "ponderation_par_difficulte": {
+        "facile": 1,
+        "moyen": 1.5,
+        "difficile": 2
+      },
+      "repartition_competences": {
+        "C20": 40,
+        "C33": 60
+      }
+    },
+    "instructions": {
+      "duree": "Vous disposez de 15 minutes pour répondre aux 6 questions.",
+      "consignes": [
+        "Lisez attentivement chaque question avant de répondre",
+        "Pour les questions à choix multiples, une seule réponse est correcte",
+        "Pour les questions vrai/faux, cochez la case correspondante",
+        "Pour les questions d'association, reliez chaque élément de gauche à son correspondant de droite",
+        "Vous pouvez revenir sur vos réponses avant la validation finale"
+      ],
+      "bareme": "Chaque question est notée selon sa difficulté : facile (1 point), moyen (1,5 points), difficile (2 points). Le seuil de réussite est fixé à 70%."
+    }
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "qcm": {
+    "id": "qcm-module-1-fondamentaux",
+    "titre": "QCM Module 1 - Fondamentaux CI/CD",
+    "description": "Évaluation des connaissances acquises sur les concepts fondamentaux CI/CD, l'automatisation des tests et les pipelines de base",
+    "duree_minutes": 20,
+    "module": "module-1",
+    "competences": ["C8", "C17"],
+    "questions": [
+      {
+        "id": "q1",
+        "type": "choix-multiple",
+        "question": "Quelle est la différence principale entre l'Intégration Continue (CI) et le Déploiement Continu (CD) ?",
+        "options": [
+          "CI se concentre sur l'intégration et les tests automatiques, CD sur le déploiement automatisé",
+          "CI concerne uniquement le code, CD concerne uniquement les conteneurs",
+          "Il n'y a aucune différence, ce sont des synonymes",
+          "CI est pour les développeurs, CD est pour les testeurs"
+        ],
+        "reponse_correcte": 0,
+        "explication": "L'Intégration Continue (CI) est une pratique qui consiste à intégrer fréquemment les modifications de code avec des tests automatiques, tandis que le Déploiement Continu (CD) étend cette pratique en automatisant le déploiement jusqu'en production après validation des tests.",
+        "competence": "C8",
+        "difficulte": "facile"
+      },
+      {
+        "id": "q2",
+        "type": "vrai-faux",
+        "question": "Dans la pyramide de test, les tests End-to-End (E2E) doivent représenter la majorité des tests automatisés.",
+        "reponse_correcte": false,
+        "explication": "Faux. Dans la pyramide de test, les tests unitaires doivent représenter environ 70% des tests (base de la pyramide), les tests d'intégration 20%, et les tests E2E seulement 10% (sommet). Les tests E2E sont plus lents, fragiles et coûteux à maintenir.",
+        "competence": "C17",
+        "difficulte": "moyen"
+      },
+      {
+        "id": "q3",
+        "type": "choix-multiple",
+        "question": "Quel est l'avantage principal du principe 'Fail Fast' dans un pipeline CI/CD ?",
+        "options": [
+          "Réduire les coûts en arrêtant le pipeline dès qu'un test échoue",
+          "Accélérer uniquement les tests unitaires",
+          "Permettre de déployer plus rapidement en production",
+          "Éviter d'écrire trop de tests"
+        ],
+        "reponse_correcte": 0,
+        "explication": "Le principe 'Fail Fast' consiste à arrêter le pipeline dès qu'un test échoue, ce qui permet d'économiser du temps et des ressources en évitant d'exécuter les étapes suivantes qui sont vouées à l'échec. Cela fournit aussi un feedback plus rapide aux développeurs.",
+        "competence": "C8",
+        "difficulte": "moyen"
+      },
+      {
+        "id": "q4",
+        "type": "association",
+        "question": "Associez chaque type de test à sa caractéristique principale :",
+        "elements_gauche": [
+          "Tests unitaires",
+          "Tests d'intégration", 
+          "Tests End-to-End"
+        ],
+        "elements_droite": [
+          "Testent l'interaction entre plusieurs composants ou services",
+          "Testent des fonctions ou méthodes individuelles de manière isolée",
+          "Simulent un parcours utilisateur complet à travers l'application"
+        ],
+        "associations_correctes": [
+          [0, 1],
+          [1, 0],
+          [2, 2]
+        ],
+        "explication": "Les tests unitaires vérifient des unités de code isolées (fonctions, méthodes), les tests d'intégration vérifient les interactions entre composants, et les tests E2E simulent le parcours utilisateur complet de bout en bout.",
+        "competence": "C17",
+        "difficulte": "moyen"
+      },
+      {
+        "id": "q5",
+        "type": "choix-multiple",
+        "question": "Dans GitHub Actions, que représente un 'Job' ?",
+        "options": [
+          "Un ensemble d'étapes exécutées sur un runner",
+          "Un fichier de configuration YAML",
+          "Un événement qui déclenche le workflow",
+          "Une action réutilisable du marketplace"
+        ],
+        "reponse_correcte": 0,
+        "explication": "Dans GitHub Actions, un Job est un ensemble d'étapes (steps) qui s'exécutent sur le même runner. Les jobs peuvent s'exécuter en parallèle ou séquentiellement selon les dépendances définies avec 'needs'.",
+        "competence": "C8",
+        "difficulte": "facile"
+      },
+      {
+        "id": "q6",
+        "type": "vrai-faux",
+        "question": "Les tests automatisés peuvent complètement remplacer les tests manuels dans tous les cas d'usage.",
+        "reponse_correcte": false,
+        "explication": "Faux. Bien que les tests automatisés soient très utiles pour les tests de régression, de performance et répétitifs, ils ne peuvent pas remplacer complètement les tests manuels, notamment pour les tests exploratoires, d'utilisabilité, d'accessibilité et certains tests créatifs qui nécessitent un jugement humain.",
+        "competence": "C17",
+        "difficulte": "facile"
+      },
+      {
+        "id": "q7",
+        "type": "choix-multiple",
+        "question": "Quelle stratégie de déploiement permet un rollback instantané en cas de problème ?",
+        "options": [
+          "Rolling Deployment",
+          "Blue-Green Deployment", 
+          "Canary Deployment",
+          "Big Bang Deployment"
+        ],
+        "reponse_correcte": 1,
+        "explication": "Le Blue-Green Deployment utilise deux environnements identiques (Blue et Green). Le trafic bascule instantanément du Blue vers le Green lors du déploiement, permettant un rollback immédiat en cas de problème en redirigeant le trafic vers l'environnement précédent.",
+        "competence": "C8",
+        "difficulte": "difficile"
+      },
+      {
+        "id": "q8",
+        "type": "choix-multiple",
+        "question": "Parmi ces outils, lesquels sont spécifiquement conçus pour les tests End-to-End ?",
+        "options": [
+          "Jest et Mocha",
+          "Cypress et Playwright",
+          "ESLint et SonarQube", 
+          "Docker et Kubernetes"
+        ],
+        "reponse_correcte": 1,
+        "explication": "Cypress et Playwright sont des frameworks spécialement conçus pour les tests End-to-End, permettant d'automatiser les interactions avec les navigateurs web. Jest et Mocha sont plutôt orientés tests unitaires, ESLint/SonarQube pour l'analyse statique, et Docker/Kubernetes pour la containerisation et l'orchestration.",
+        "competence": "C17",
+        "difficulte": "moyen"
+      }
+    ],
+    "scoring": {
+      "total_points": 100,
+      "seuil_reussite": 70,
+      "ponderation_par_difficulte": {
+        "facile": 1,
+        "moyen": 1.5,
+        "difficile": 2
+      },
+      "repartition_competences": {
+        "C8": 50,
+        "C17": 50
+      }
+    },
+    "instructions": {
+      "duree": "Vous disposez de 20 minutes pour répondre aux 8 questions.",
+      "consignes": [
+        "Lisez attentivement chaque question avant de répondre",
+        "Pour les questions à choix multiples, une seule réponse est correcte",
+        "Pour les questions vrai/faux, cochez la case correspondante",
+        "Pour les questions d'association, reliez chaque élément de gauche à son correspondant de droite",
+        "Vous pouvez revenir sur vos réponses avant la validation finale"
+      ],
+      "bareme": "Chaque question est notée selon sa difficulté : facile (1 point), moyen (1,5 points), difficile (2 points). Le seuil de réussite est fixé à 70%."
+    }
+  }
+}

@@ -1,0 +1,215 @@
+{
+  "qcm": {
+    "id": "qcm-module-3-tests-fonctionnels",
+    "titre": "QCM Module 3 - Tests Fonctionnels et Non-Fonctionnels",
+    "description": "Évaluation des connaissances acquises sur les tests fonctionnels automatisés, les tests de performance, de charge et de sécurité",
+    "duree_minutes": 25,
+    "module": "module-3",
+    "competences": ["C17", "C18"],
+    "questions": [
+      {
+        "id": "q1",
+        "type": "choix-multiple",
+        "question": "Quelle est la différence principale entre Selenium et Cypress pour les tests UI ?",
+        "options": [
+          "Selenium supporte plusieurs navigateurs, Cypress est limité à Chrome/Firefox/Edge",
+          "Cypress est plus rapide et moderne, Selenium est plus mature et polyvalent",
+          "Selenium est gratuit, Cypress est payant",
+          "Il n'y a aucune différence significative"
+        ],
+        "reponse_correcte": 1,
+        "explication": "Cypress est plus moderne avec une architecture différente qui le rend plus rapide et stable, mais Selenium est plus mature, supporte plus de langages de programmation et de navigateurs, offrant une plus grande polyvalence pour les équipes.",
+        "competence": "C17",
+        "difficulte": "moyen"
+      },
+      {
+        "id": "q2",
+        "type": "vrai-faux",
+        "question": "Les tests API sont généralement plus rapides et plus stables que les tests UI.",
+        "reponse_correcte": true,
+        "explication": "Vrai. Les tests API sont plus rapides car ils n'impliquent pas de rendu d'interface utilisateur, et plus stables car ils ne dépendent pas des éléments visuels qui peuvent changer. Ils testent directement la logique métier.",
+        "competence": "C17",
+        "difficulte": "facile"
+      },
+      {
+        "id": "q3",
+        "type": "choix-multiple",
+        "question": "Dans JMeter, que représente un 'Thread Group' ?",
+        "options": [
+          "Un groupe de serveurs à tester",
+          "Un ensemble d'utilisateurs virtuels simulés",
+          "Une collection de requêtes HTTP",
+          "Un type de rapport de performance"
+        ],
+        "reponse_correcte": 1,
+        "explication": "Un Thread Group dans JMeter représente un ensemble d'utilisateurs virtuels (threads) qui exécutent le même scénario de test. Chaque thread simule un utilisateur réel effectuant des actions sur l'application.",
+        "competence": "C18",
+        "difficulte": "facile"
+      },
+      {
+        "id": "q4",
+        "type": "association",
+        "question": "Associez chaque type de test de performance à sa définition :",
+        "elements_gauche": [
+          "Test de charge",
+          "Test de stress",
+          "Test de pic"
+        ],
+        "elements_droite": [
+          "Teste le comportement sous une charge soudaine et importante",
+          "Teste le comportement sous la charge normale attendue",
+          "Teste le comportement au-delà des limites normales"
+        ],
+        "associations_correctes": [
+          [0, 1],
+          [1, 2],
+          [2, 0]
+        ],
+        "explication": "Le test de charge vérifie les performances sous charge normale, le test de stress pousse le système au-delà de ses limites pour identifier le point de rupture, et le test de pic simule des augmentations soudaines de trafic.",
+        "competence": "C18",
+        "difficulte": "moyen"
+      },
+      {
+        "id": "q5",
+        "type": "choix-multiple",
+        "question": "Quel est l'objectif principal d'OWASP ZAP dans les tests de sécurité ?",
+        "options": [
+          "Tester les performances de l'application",
+          "Identifier les vulnérabilités de sécurité web",
+          "Automatiser les tests fonctionnels",
+          "Monitorer les temps de réponse"
+        ],
+        "reponse_correcte": 1,
+        "explication": "OWASP ZAP (Zed Attack Proxy) est un outil de test de sécurité qui identifie automatiquement les vulnérabilités web comme les injections SQL, XSS, CSRF, etc. Il fait partie du projet OWASP (Open Web Application Security Project).",
+        "competence": "C18",
+        "difficulte": "facile"
+      },
+      {
+        "id": "q6",
+        "type": "vrai-faux",
+        "question": "Les tests de sécurité doivent uniquement être effectués en fin de développement avant la mise en production.",
+        "reponse_correcte": false,
+        "explication": "Faux. Les tests de sécurité doivent être intégrés tout au long du cycle de développement (Security by Design). Plus tôt les vulnérabilités sont détectées, moins elles coûtent à corriger. L'approche 'Shift Left Security' préconise des tests de sécurité dès les premières phases.",
+        "competence": "C18",
+        "difficulte": "moyen"
+      },
+      {
+        "id": "q7",
+        "type": "choix-multiple",
+        "question": "Quelle métrique est la plus importante pour évaluer la performance d'une API REST ?",
+        "options": [
+          "Le nombre de lignes de code",
+          "Le temps de réponse moyen",
+          "La taille des fichiers de log",
+          "Le nombre de développeurs dans l'équipe"
+        ],
+        "reponse_correcte": 1,
+        "explication": "Le temps de réponse moyen est une métrique clé pour évaluer la performance d'une API REST. D'autres métriques importantes incluent le débit (throughput), le taux d'erreur et les percentiles (P95, P99) pour comprendre la distribution des temps de réponse.",
+        "competence": "C18",
+        "difficulte": "facile"
+      },
+      {
+        "id": "q8",
+        "type": "choix-multiple",
+        "question": "Dans Postman, que permet de faire la fonctionnalité 'Collection Runner' ?",
+        "options": [
+          "Créer des collections de requêtes",
+          "Exécuter automatiquement une série de requêtes avec des tests",
+          "Importer des fichiers de configuration",
+          "Générer de la documentation API"
+        ],
+        "reponse_correcte": 1,
+        "explication": "Le Collection Runner de Postman permet d'exécuter automatiquement toutes les requêtes d'une collection dans un ordre défini, avec la possibilité d'utiliser des données externes (CSV/JSON) et d'exécuter les tests associés à chaque requête.",
+        "competence": "C17",
+        "difficulte": "moyen"
+      },
+      {
+        "id": "q9",
+        "type": "vrai-faux",
+        "question": "Snyk peut analyser les vulnérabilités dans les dépendances de votre projet automatiquement.",
+        "reponse_correcte": true,
+        "explication": "Vrai. Snyk analyse automatiquement les dépendances de votre projet (npm, Maven, pip, etc.) pour identifier les vulnérabilités connues et propose des corrections. Il peut s'intégrer dans les pipelines CI/CD pour un contrôle continu.",
+        "competence": "C18",
+        "difficulte": "facile"
+      },
+      {
+        "id": "q10",
+        "type": "association",
+        "question": "Associez chaque outil à son domaine d'application principal :",
+        "elements_gauche": [
+          "RestAssured",
+          "Grafana",
+          "OWASP ZAP"
+        ],
+        "elements_droite": [
+          "Visualisation et monitoring des métriques",
+          "Tests de sécurité et scan de vulnérabilités",
+          "Tests automatisés d'API REST"
+        ],
+        "associations_correctes": [
+          [0, 2],
+          [1, 0],
+          [2, 1]
+        ],
+        "explication": "RestAssured est une bibliothèque Java pour tester les API REST, Grafana est une plateforme de visualisation pour créer des dashboards de monitoring, et OWASP ZAP est un outil de test de sécurité pour identifier les vulnérabilités web.",
+        "competence": "C17",
+        "difficulte": "moyen"
+      },
+      {
+        "id": "q11",
+        "type": "choix-multiple",
+        "question": "Quelle est la meilleure pratique pour les tests de charge dans un environnement cloud ?",
+        "options": [
+          "Utiliser uniquement des serveurs locaux pour éviter les coûts",
+          "Tester uniquement en production pour avoir des données réelles",
+          "Utiliser des environnements dédiés qui reproduisent la production",
+          "Éviter les tests de charge car ils sont trop complexes"
+        ],
+        "reponse_correcte": 2,
+        "explication": "La meilleure pratique est d'utiliser des environnements de test dédiés qui reproduisent fidèlement l'architecture de production (même configuration, même dimensionnement). Cela permet de tester en sécurité sans impacter les utilisateurs réels.",
+        "competence": "C18",
+        "difficulte": "difficile"
+      },
+      {
+        "id": "q12",
+        "type": "choix-multiple",
+        "question": "Dans le contexte des tests automatisés, que signifie 'Test Data Management' ?",
+        "options": [
+          "La sauvegarde des résultats de tests",
+          "La gestion et préparation des données nécessaires aux tests",
+          "L'analyse des performances de la base de données",
+          "La documentation des cas de test"
+        ],
+        "reponse_correcte": 1,
+        "explication": "Test Data Management (TDM) concerne la gestion, préparation et maintenance des données nécessaires pour exécuter les tests. Cela inclut la création de jeux de données de test, leur isolation, leur nettoyage et leur réinitialisation entre les tests.",
+        "competence": "C17",
+        "difficulte": "difficile"
+      }
+    ],
+    "scoring": {
+      "total_points": 100,
+      "seuil_reussite": 70,
+      "ponderation_par_difficulte": {
+        "facile": 1,
+        "moyen": 1.5,
+        "difficile": 2
+      },
+      "repartition_competences": {
+        "C17": 60,
+        "C18": 40
+      }
+    },
+    "instructions": {
+      "duree": "Vous disposez de 25 minutes pour répondre aux 12 questions.",
+      "consignes": [
+        "Lisez attentivement chaque question avant de répondre",
+        "Pour les questions à choix multiples, une seule réponse est correcte",
+        "Pour les questions vrai/faux, cochez la case correspondante",
+        "Pour les questions d'association, reliez chaque élément de gauche à son correspondant de droite",
+        "Vous pouvez revenir sur vos réponses avant la validation finale",
+        "Les questions couvrent les tests fonctionnels, de performance et de sécurité"
+      ],
+      "bareme": "Chaque question est notée selon sa difficulté : facile (1 point), moyen (1,5 points), difficile (2 points). Le seuil de réussite est fixé à 70%."
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "supports-cours-cicd-pdf-generator",
+  "version": "1.0.0",
+  "description": "Générateur PDF pour les supports de cours CI/CD",
+  "main": "generate-pdf.js",
+  "scripts": {
+    "generate-pdf": "node generate-pdf.js",
+    "install-deps": "npm install",
+    "check-pandoc": "pandoc --version || echo 'Pandoc non installé. Voir README pour instructions.'",
+    "setup": "npm run install-deps && npm run check-pandoc"
+  },
+  "dependencies": {
+    "markdown-it": "^13.0.1",
+    "puppeteer": "^21.0.0",
+    "html-pdf": "^3.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "pdf",
+    "markdown",
+    "formation",
+    "cicd",
+    "documentation"
+  ],
+  "author": "Formation EADL",
+  "license": "MIT"
+}

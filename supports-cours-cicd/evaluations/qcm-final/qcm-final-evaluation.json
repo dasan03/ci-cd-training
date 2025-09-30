@@ -1,0 +1,100 @@
+{
+  "qcm": {
+    "id": "qcm-final-evaluation",
+    "titre": "QCM Final - Évaluation Complète CI/CD",
+    "description": "Évaluation finale des compétences acquises durant la formation CI/CD de 5 jours",
+    "duree_minutes": 60,
+    "type": "evaluation-finale",
+    "competences": ["C8", "C17", "C18", "C19", "C20", "C33"],
+    "repartition_modules": {
+      "module-1": 8,
+      "module-2": 15,
+      "module-3": 15,
+      "module-4": 7
+    },
+    "questions": [
+      {
+        "id": "q1",
+        "module": "module-1",
+        "type": "choix-multiple",
+        "question": "Quelle est la différence principale entre l'intégration continue (CI) et le déploiement continu (CD) ?",
+        "options": [
+          "CI concerne les tests, CD concerne le déploiement automatisé",
+          "CI est manuel, CD est automatique",
+          "CI utilise Docker, CD utilise Kubernetes",
+          "Il n'y a aucune différence"
+        ],
+        "reponse_correcte": 0,
+        "explication": "L'intégration continue (CI) se concentre sur l'intégration fréquente du code et l'exécution automatique des tests, tandis que le déploiement continu (CD) automatise le processus de déploiement en production.",
+        "competence": "C8",
+        "difficulte": "facile"
+      },
+      {
+        "id": "q2",
+        "module": "module-1",
+        "type": "vrai-faux",
+        "question": "GitHub Actions permet uniquement d'exécuter des tests, pas de déployer des applications.",
+        "reponse_correcte": false,
+        "explication": "GitHub Actions est une plateforme complète de CI/CD qui permet à la fois d'exécuter des tests, de construire des applications et de les déployer sur différents environnements.",
+        "competence": "C8",
+        "difficulte": "facile"
+      },
+      {
+        "id": "q3",
+        "module": "module-1",
+        "type": "choix-multiple",
+        "question": "Quel est l'avantage principal de l'utilisation de Docker dans un pipeline CI/CD ?",
+        "options": [
+          "Réduction des coûts de développement",
+          "Isolation et reproductibilité des environnements",
+          "Amélioration des performances de l'application",
+          "Simplification du code source"
+        ],
+        "reponse_correcte": 1,
+        "explication": "Docker permet de créer des environnements isolés et reproductibles, garantissant que l'application fonctionne de manière identique en développement, test et production.",
+        "competence": "C17",
+        "difficulte": "moyen"
+      },
+      {
+        "id": "q4",
+        "module": "module-1",
+        "type": "association",
+        "question": "Associez chaque type de test à sa position dans la pyramide des tests :",
+        "elements_gauche": [
+          "Tests unitaires",
+          "Tests d'intégration",
+          "Tests E2E"
+        ],
+        "elements_droite": [
+          "Base de la pyramide (nombreux et rapides)",
+          "Milieu de la pyramide (modérés)",
+          "Sommet de la pyramide (peu nombreux et lents)"
+        ],
+        "associations_correctes": [
+          [0, 0],
+          [1, 1],
+          [2, 2]
+        ],
+        "explication": "La pyramide des tests recommande de nombreux tests unitaires à la base, un nombre modéré de tests d'intégration au milieu, et peu de tests E2E au sommet.",
+        "competence": "C17",
+        "difficulte": "moyen"
+      },
+      {
+        "id": "q5",
+        "module": "module-1",
+        "type": "choix-multiple",
+        "question": "Quelle pratique est recommandée pour optimiser les temps d'exécution des tests dans un pipeline CI/CD ?",
+        "options": [
+          "Exécuter tous les tests séquentiellement",
+          "Paralléliser l'exécution des tests",
+          "Réduire le nombre de tests",
+          "Exécuter les tests uniquement en production"
+        ],
+        "reponse_correcte": 1,
+        "explication": "La parallélisation des tests permet de réduire significativement le temps total d'exécution du pipeline en utilisant plusieurs processeurs ou machines simultanément.",
+        "competence": "C8",
+        "difficulte": "moyen"
+      }
+    ]
+  }
+}

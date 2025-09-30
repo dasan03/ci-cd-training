@@ -1,0 +1,49 @@
+{
+  "timestamp": "2025-09-29T13:25:42.203Z",
+  "validation": {
+    "structure": {
+      "status": "completed",
+      "issues": 0
+    },
+    "content": {
+      "status": "completed",
+      "issues": 0
+    },
+    "exercises": {
+      "status": "completed",
+      "issues": 0
+    },
+    "qcm": {
+      "status": "completed",
+      "issues": 0
+    },
+    "pedagogical": {
+      "status": "completed",
+      "issues": 0
+    },
+    "accessibility": {
+      "status": "completed",
+      "errors": 0,
+      "warnings": 99
+    },
+    "formats": {
+      "status": "completed",
+      "issues": 0
+    }
+  },
+  "summary": {
+    "totalFiles": 72,
+    "criticalIssues": 0,
+    "warnings": 99,
+    "recommendations": [
+      "Tester manuellement tous les exercices dans les environnements cibles",
+      "Faire réviser le contenu par un expert pédagogique",
+      "Valider l'accessibilité avec des outils spécialisés (axe-core, WAVE)",
+      "Tester la navigation au clavier sur tous les formats HTML",
+      "Vérifier les contrastes de couleurs avec un outil dédié",
+      "Effectuer des tests utilisateurs avec des apprenants pilotes",
+      "Valider les exercices avec les versions actuelles des outils",
+      "Tester les QCM interactifs dans différents navigateurs"
+    ]
+  }
+}

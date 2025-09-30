@@ -1,0 +1,87 @@
+version: '3.8'
+
+services:
+  # Service MongoDB pour les tests
+  mongodb-test:
+    image: mongo:6.0-alpine
+    container_name: mongodb-test
+    environment:
+      MONGO_INITDB_DATABASE: todoapp_test
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_test_data:/data/db
+      - ./scripts/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    networks:
+      - test-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # Service de l'application pour les tests unitaires
+  app-unit-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    container_name: app-unit-tests
+    environment:
+      NODE_ENV: test
+      TEST_TYPE: unit
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - test-network
+    command: npm run test -- --testPathPattern=unit
+    depends_on:
+      - mongodb-test
+
+  # Service de l'application pour les tests d'intégration
+  app-integration-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    container_name: app-integration-tests
+    environment:
+      NODE_ENV: test
+      TEST_TYPE: integration
+      MONGODB_URI: mongodb://mongodb-test:27017/todoapp_test
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - test-network
+    command: npm run test:integration
+    depends_on:
+      mongodb-test:
+        condition: service_healthy
+
+  # Service pour tous les tests
+  app-all-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    container_name: app-all-tests
+    environment:
+      NODE_ENV: test
+      MONGODB_URI: mongodb://mongodb-test:27017/todoapp_test
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - test-network
+    command: npm test
+    depends_on:
+      mongodb-test:
+        condition: service_healthy
+
+volumes:
+  mongodb_test_data:
+    driver: local
+
+networks:
+  test-network:
+    driver: bridge

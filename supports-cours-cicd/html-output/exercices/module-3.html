@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercices MODULE-3 - Formation CI/CD</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <style>
+      .exercise-card {
+        background: var(--card-background);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        margin-bottom: 2rem;
+        overflow: hidden;
+      }
+      
+      .exercise-header {
+        background: var(--primary-color);
+        color: white;
+        padding: 1rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .exercise-header h3 {
+        margin: 0;
+        color: white;
+      }
+      
+      .exercise-duration {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.9rem;
+      }
+      
+      .exercise-content {
+        padding: 1.5rem;
+      }
+      
+      .exercise-form {
+        background: #f8fafc;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-top: 1rem;
+      }
+      
+      .form-group {
+        margin-bottom: 1rem;
+      }
+      
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+      
+      .form-group textarea {
+        width: 100%;
+        min-height: 100px;
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        font-size: 1rem;
+        font-family: 'Courier New', monospace;
+        resize: vertical;
+      }
+      
+      .difficulty-badge {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+      }
+      
+      .difficulty-débutant {
+        background: rgba(16, 185, 129, 0.1);
+        color: var(--success-color);
+      }
+      
+      .difficulty-intermédiaire {
+        background: rgba(37, 99, 235, 0.1);
+        color: var(--primary-color);
+      }
+      
+      .difficulty-avancé {
+        background: rgba(245, 158, 11, 0.1);
+        color: var(--warning-color);
+      }
+      
+      .exercise-result {
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 8px;
+        display: none;
+      }
+      
+      .exercise-result.success {
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid var(--success-color);
+        color: var(--success-color);
+      }
+      
+      .exercise-result.error {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid var(--error-color);
+        color: var(--error-color);
+      }
+      
+      .alert {
+        padding: 1rem;
+        border-radius: 8px;
+        margin: 1rem 0;
+        border-left: 4px solid;
+      }
+      
+      .alert-info {
+        background: #dbeafe;
+        border-color: var(--primary-color);
+        color: #1e40af;
+      }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1><a href="../index.html">Formation CI/CD</a></h1>
+            </div>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="../index.html">Accueil</a></li>
+                    <li><a href="#exercices">Exercices</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="hero-section">
+                <div class="module-badge">MODULE-3</div>
+                <h1 class="module-title">Exercices Pratiques</h1>
+                <p class="module-description">Mettez en pratique les concepts appris dans ce module</p>
+            </section>
+
+            <section id="exercices" class="content-section">
+                <div class="alert alert-info">
+                    <strong>💡 Instructions :</strong>
+                    Complétez les exercices ci-dessous en saisissant votre code ou vos réponses dans les zones prévues. 
+                    Cliquez sur "Valider" pour vérifier votre travail.
+                </div>
+                
+                <h2>🔧 Liste des Exercices</h2>
+                
+      <div class="exercise-card">
+        <div class="exercise-header">
+          <h3>Tests UI avec Selenium et Cypress</h3>
+          <span class="exercise-duration">60 min</span>
+        </div>
+        <div class="exercise-content">
+          <div class="difficulty-badge difficulty-intermédiaire">Intermédiaire</div>
+          
+          <p><strong>🎯 Objectif:</strong> Maîtriser les tests d'interface utilisateur</p>
+          <p>Créez des tests automatisés d'interface avec Selenium et Cypress</p>
+          
+          <h4>📋 Instructions:</h4>
+          <ol>
+            <li>Installez Selenium WebDriver</li><li>Créez vos premiers tests Selenium</li><li>Installez et configurez Cypress</li><li>Comparez les deux approches</li>
+          </ol>
+          
+          <div class="exercise-form" data-exercise-id="ex-3-1">
+            <h4>💻 Zone de Travail</h4>
+            <div class="form-group">
+              <label for="ex-3-1-code">Code/Configuration:</label>
+              <textarea id="ex-3-1-code" name="code" placeholder="Saisissez votre code ou configuration ici..." required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="ex-3-1-result">Résultat obtenu:</label>
+              <textarea id="ex-3-1-result" name="result" placeholder="Décrivez le résultat obtenu, les erreurs rencontrées, etc." required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="ex-3-1-notes">Notes personnelles (optionnel):</label>
+              <textarea id="ex-3-1-notes" name="notes" placeholder="Vos observations, apprentissages, questions..."></textarea>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="validateExercise('ex-3-1')">
+              ✅ Valider l'exercice
+            </button>
+            <div class="exercise-result"></div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="exercise-card">
+        <div class="exercise-header">
+          <h3>Tests API avec Postman et RestAssured</h3>
+          <span class="exercise-duration">45 min</span>
+        </div>
+        <div class="exercise-content">
+          <div class="difficulty-badge difficulty-intermédiaire">Intermédiaire</div>
+          
+          <p><strong>🎯 Objectif:</strong> Automatiser les tests d'API</p>
+          <p>Testez vos APIs avec Postman et RestAssured pour garantir leur fiabilité</p>
+          
+          <h4>📋 Instructions:</h4>
+          <ol>
+            <li>Créez une collection Postman</li><li>Écrivez des tests avec RestAssured</li><li>Automatisez l'exécution</li><li>Générez des rapports</li>
+          </ol>
+          
+          <div class="exercise-form" data-exercise-id="ex-3-2">
+            <h4>💻 Zone de Travail</h4>
+            <div class="form-group">
+              <label for="ex-3-2-code">Code/Configuration:</label>
+              <textarea id="ex-3-2-code" name="code" placeholder="Saisissez votre code ou configuration ici..." required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="ex-3-2-result">Résultat obtenu:</label>
+              <textarea id="ex-3-2-result" name="result" placeholder="Décrivez le résultat obtenu, les erreurs rencontrées, etc." required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="ex-3-2-notes">Notes personnelles (optionnel):</label>
+              <textarea id="ex-3-2-notes" name="notes" placeholder="Vos observations, apprentissages, questions..."></textarea>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="validateExercise('ex-3-2')">
+              ✅ Valider l'exercice
+            </button>
+            <div class="exercise-result"></div>
+          </div>
+        </div>
+      </div>
+    
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Formation CI/CD - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/scripts.js"></script>
+    <script>
+      // JavaScript pour la validation des exercices
+      function validateExercise(exerciseId) {
+        const form = document.querySelector(`[data-exercise-id="${exerciseId}"]`);
+        const resultDiv = form.querySelector('.exercise-result');
+        const codeInput = form.querySelector('textarea[name="code"]');
+        const resultInput = form.querySelector('textarea[name="result"]');
+        
+        // Validation basique : vérifier que les champs sont remplis
+        const isValid = codeInput.value.trim() !== '' && resultInput.value.trim() !== '';
+        
+        resultDiv.style.display = 'block';
+        resultDiv.className = 'exercise-result ' + (isValid ? 'success' : 'error');
+        
+        if (isValid) {
+          resultDiv.innerHTML = '<strong>✅ Exercice validé !</strong><br>Félicitations, vous avez complété cet exercice.';
+        } else {
+          resultDiv.innerHTML = '<strong>❌ Exercice incomplet</strong><br>Veuillez compléter tous les champs requis.';
+        }
+      }
+      
+      // Sauvegarde automatique dans le localStorage
+      document.addEventListener('input', (e) => {
+        if (e.target.tagName === 'TEXTAREA') {
+          const exerciseId = e.target.closest('[data-exercise-id]').dataset.exerciseId;
+          const fieldName = e.target.name;
+          localStorage.setItem(`exercise_${exerciseId}_${fieldName}`, e.target.value);
+        }
+      });
+      
+      // Restauration des données sauvegardées
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('[data-exercise-id]').forEach(form => {
+          const exerciseId = form.dataset.exerciseId;
+          form.querySelectorAll('textarea').forEach(textarea => {
+            const fieldName = textarea.name;
+            const savedValue = localStorage.getItem(`exercise_${exerciseId}_${fieldName}`);
+            if (savedValue) {
+              textarea.value = savedValue;
+            }
+          });
+        });
+      });
+    </script>
+</body>
+</html>

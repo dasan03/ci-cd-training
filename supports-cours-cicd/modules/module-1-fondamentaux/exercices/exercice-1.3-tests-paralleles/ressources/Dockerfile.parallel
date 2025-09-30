@@ -1,0 +1,48 @@
+# Dockerfile optimisé pour les tests parallèles
+FROM node:18-alpine
+
+# Installer les outils de monitoring
+RUN apk add --no-cache \
+    htop \
+    procps \
+    curl \
+    jq
+
+# Définir le répertoire de travail
+WORKDIR /app
+
+# Copier les fichiers de dépendances
+COPY package*.json ./
+
+# Installer les dépendances avec optimisations pour les tests parallèles
+RUN npm ci --only=production && \
+    npm ci --only=dev && \
+    npm cache clean --force
+
+# Copier le code source
+COPY . .
+
+# Créer les dossiers pour les résultats de tests
+RUN mkdir -p test-results logs
+
+# Créer un utilisateur non-root
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
+
+# Configurer les permissions
+RUN chown -R nodejs:nodejs /app
+USER nodejs
+
+# Variables d'environnement pour optimiser Node.js pour les tests parallèles
+ENV NODE_OPTIONS="--max-old-space-size=512 --optimize-for-size"
+ENV UV_THREADPOOL_SIZE=8
+
+# Exposer le port pour les tests d'intégration
+EXPOSE 3000
+
+# Script de santé pour vérifier que le conteneur est prêt
+HEALTHCHECK --interval=10s --timeout=5s --start-period=10s --retries=3 \
+    CMD node -e "console.log('Container healthy')" || exit 1
+
+# Commande par défaut
+CMD ["npm", "run", "test:parallel"]

@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCM Module 1 - Fondamentaux CI/CD</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #007acc;
+        }
+        .header h1 {
+            color: #007acc;
+            margin-bottom: 10px;
+        }
+        .info-box {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #007acc;
+        }
+        .question {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .question h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .question-meta {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .badge.facile { background: #d4edda; color: #155724; }
+        .badge.moyen { background: #fff3cd; color: #856404; }
+        .badge.difficile { background: #f8d7da; color: #721c24; }
+        .badge.competence { background: #cce5ff; color: #004085; }
+        .options {
+            margin: 15px 0;
+        }
+        .option {
+            margin: 8px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .option:hover {
+            background-color: #f0f8ff;
+        }
+        .option input {
+            margin-right: 10px;
+        }
+        .association-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 15px 0;
+        }
+        .association-list {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        .association-item {
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .association-item:hover {
+            background-color: #f0f8ff;
+        }
+        .association-item.selected {
+            background-color: #007acc;
+            color: white;
+        }
+        .explanation {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            border-left: 4px solid #28a745;
+            display: none;
+        }
+        .explanation.show {
+            display: block;
+        }
+        .explanation h4 {
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+        .controls {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .btn {
+            background: #007acc;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 0 10px;
+            transition: background-color 0.2s;
+        }
+        .btn:hover {
+            background: #005a9e;
+        }
+        .btn.secondary {
+            background: #6c757d;
+        }
+        .btn.secondary:hover {
+            background: #545b62;
+        }
+        .results {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+        .results.show {
+            display: block;
+        }
+        .score {
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .score.success { color: #28a745; }
+        .score.warning { color: #ffc107; }
+        .score.danger { color: #dc3545; }
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #007acc;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="timer" id="timer">20:00</div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>QCM Module 1 - Fondamentaux CI/CD</h1>
+            <p>Évaluation des connaissances acquises sur les concepts fondamentaux CI/CD</p>
+        </div>
+
+        <div class="info-box">
+            <h3>Instructions</h3>
+            <ul>
+                <li><strong>Durée :</strong> 20 minutes pour 8 questions</li>
+                <li><strong>Seuil de réussite :</strong> 70%</li>
+                <li><strong>Compétences évaluées :</strong> C8 (Réaliser des tests d'intégration), C17 (Automatiser les tests)</li>
+                <li>Lisez attentivement chaque question avant de répondre</li>
+                <li>Vous pouvez revenir sur vos réponses avant la validation finale</li>
+            </ul>
+        </div>
+
+        <form id="qcmForm">
+            <!-- Question 1 -->
+            <div class="question">
+                <div class="question-meta">
+                    <span class="badge facile">Facile</span>
+                    <span class="badge competence">C8</span>
+                </div>
+                <h3>Question 1</h3>
+                <p>Quelle est la différence principale entre l'Intégration Continue (CI) et le Déploiement Continu (CD) ?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q1" value="0" id="q1_0">
+                        <label for="q1_0">CI se concentre sur l'intégration et les tests automatiques, CD sur le déploiement automatisé</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" value="1" id="q1_1">
+                        <label for="q1_1">CI concerne uniquement le code, CD concerne uniquement les conteneurs</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" value="2" id="q1_2">
+                        <label for="q1_2">Il n'y a aucune différence, ce sont des synonymes</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" value="3" id="q1_3">
+                        <label for="q1_3">CI est pour les développeurs, CD est pour les testeurs</label>
+                    </div>
+                </div>
+                <div class="explanation" id="exp1">
+                    <h4>Explication</h4>
+                    <p>L'Intégration Continue (CI) est une pratique qui consiste à intégrer fréquemment les modifications de code avec des tests automatiques, tandis que le Déploiement Continu (CD) étend cette pratique en automatisant le déploiement jusqu'en production après validation des tests.</p>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question">
+                <div class="question-meta">
+                    <span class="badge moyen">Moyen</span>
+                    <span class="badge competence">C17</span>
+                </div>
+                <h3>Question 2</h3>
+                <p>Dans la pyramide de test, les tests End-to-End (E2E) doivent représenter la majorité des tests automatisés.</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q2" value="true" id="q2_true">
+                        <label for="q2_true">Vrai</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" value="false" id="q2_false">
+                        <label for="q2_false">Faux</label>
+                    </div>
+                </div>
+                <div class="explanation" id="exp2">
+                    <h4>Explication</h4>
+                    <p>Faux. Dans la pyramide de test, les tests unitaires doivent représenter environ 70% des tests (base de la pyramide), les tests d'intégration 20%, et les tests E2E seulement 10% (sommet). Les tests E2E sont plus lents, fragiles et coûteux à maintenir.</p>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question">
+                <div class="question-meta">
+                    <span class="badge moyen">Moyen</span>
+                    <span class="badge competence">C8</span>
+                </div>
+                <h3>Question 3</h3>
+                <p>Quel est l'avantage principal du principe 'Fail Fast' dans un pipeline CI/CD ?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q3" value="0" id="q3_0">
+                        <label for="q3_0">Réduire les coûts en arrêtant le pipeline dès qu'un test échoue</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" value="1" id="q3_1">
+                        <label for="q3_1">Accélérer uniquement les tests unitaires</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" value="2" id="q3_2">
+                        <label for="q3_2">Permettre de déployer plus rapidement en production</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" value="3" id="q3_3">
+                        <label for="q3_3">Éviter d'écrire trop de tests</label>
+                    </div>
+                </div>
+                <div class="explanation" id="exp3">
+                    <h4>Explication</h4>
+                    <p>Le principe 'Fail Fast' consiste à arrêter le pipeline dès qu'un test échoue, ce qui permet d'économiser du temps et des ressources en évitant d'exécuter les étapes suivantes qui sont vouées à l'échec. Cela fournit aussi un feedback plus rapide aux développeurs.</p>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question">
+                <div class="question-meta">
+                    <span class="badge moyen">Moyen</span>
+                    <span class="badge competence">C17</span>
+                </div>
+                <h3>Question 4</h3>
+                <p>Associez chaque type de test à sa caractéristique principale :</p>
+                <div class="association-container">
+                    <div class="association-list">
+                        <h4>Types de tests</h4>
+                        <div class="association-item" data-left="0">Tests unitaires</div>
+                        <div class="association-item" data-left="1">Tests d'intégration</div>
+                        <div class="association-item" data-left="2">Tests End-to-End</div>
+                    </div>
+                    <div class="association-list">
+                        <h4>Caractéristiques</h4>
+                        <div class="association-item" data-right="0">Testent l'interaction entre plusieurs composants ou services</div>
+                        <div class="association-item" data-right="1">Testent des fonctions ou méthodes individuelles de manière isolée</div>
+                        <div class="association-item" data-right="2">Simulent un parcours utilisateur complet à travers l'application</div>
+                    </div>
+                </div>
+                <input type="hidden" name="q4" id="q4_value">
+                <div class="explanation" id="exp4">
+                    <h4>Explication</h4>
+                    <p>Les tests unitaires vérifient des unités de code isolées (fonctions, méthodes), les tests d'intégration vérifient les interactions entre composants, et les tests E2E simulent le parcours utilisateur complet de bout en bout.</p>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question">
+                <div class="question-meta">
+                    <span class="badge facile">Facile</span>
+                    <span class="badge competence">C8</span>
+                </div>
+                <h3>Question 5</h3>
+                <p>Dans GitHub Actions, que représente un 'Job' ?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q5" value="0" id="q5_0">
+                        <label for="q5_0">Un ensemble d'étapes exécutées sur un runner</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" value="1" id="q5_1">
+                        <label for="q5_1">Un fichier de configuration YAML</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" value="2" id="q5_2">
+                        <label for="q5_2">Un événement qui déclenche le workflow</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" value="3" id="q5_3">
+                        <label for="q5_3">Une action réutilisable du marketplace</label>
+                    </div>
+                </div>
+                <div class="explanation" id="exp5">
+                    <h4>Explication</h4>
+                    <p>Dans GitHub Actions, un Job est un ensemble d'étapes (steps) qui s'exécutent sur le même runner. Les jobs peuvent s'exécuter en parallèle ou séquentiellement selon les dépendances définies avec 'needs'.</p>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question">
+                <div class="question-meta">
+                    <span class="badge facile">Facile</span>
+                    <span class="badge competence">C17</span>
+                </div>
+                <h3>Question 6</h3>
+                <p>Les tests automatisés peuvent complètement remplacer les tests manuels dans tous les cas d'usage.</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q6" value="true" id="q6_true">
+                        <label for="q6_true">Vrai</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" value="false" id="q6_false">
+                        <label for="q6_false">Faux</label>
+                    </div>
+                </div>
+                <div class="explanation" id="exp6">
+                    <h4>Explication</h4>
+                    <p>Faux. Bien que les tests automatisés soient très utiles pour les tests de régression, de performance et répétitifs, ils ne peuvent pas remplacer complètement les tests manuels, notamment pour les tests exploratoires, d'utilisabilité, d'accessibilité et certains tests créatifs qui nécessitent un jugement humain.</p>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question">
+                <div class="question-meta">
+                    <span class="badge difficile">Difficile</span>
+                    <span class="badge competence">C8</span>
+                </div>
+                <h3>Question 7</h3>
+                <p>Quelle stratégie de déploiement permet un rollback instantané en cas de problème ?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q7" value="0" id="q7_0">
+                        <label for="q7_0">Rolling Deployment</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" value="1" id="q7_1">
+                        <label for="q7_1">Blue-Green Deployment</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" value="2" id="q7_2">
+                        <label for="q7_2">Canary Deployment</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" value="3" id="q7_3">
+                        <label for="q7_3">Big Bang Deployment</label>
+                    </div>
+                </div>
+                <div class="explanation" id="exp7">
+                    <h4>Explication</h4>
+                    <p>Le Blue-Green Deployment utilise deux environnements identiques (Blue et Green). Le trafic bascule instantanément du Blue vers le Green lors du déploiement, permettant un rollback immédiat en cas de problème en redirigeant le trafic vers l'environnement précédent.</p>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question">
+                <div class="question-meta">
+                    <span class="badge moyen">Moyen</span>
+                    <span class="badge competence">C17</span>
+                </div>
+                <h3>Question 8</h3>
+                <p>Parmi ces outils, lesquels sont spécifiquement conçus pour les tests End-to-End ?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q8" value="0" id="q8_0">
+                        <label for="q8_0">Jest et Mocha</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" value="1" id="q8_1">
+                        <label for="q8_1">Cypress et Playwright</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" value="2" id="q8_2">
+                        <label for="q8_2">ESLint et SonarQube</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" value="3" id="q8_3">
+                        <label for="q8_3">Docker et Kubernetes</label>
+                    </div>
+                </div>
+                <div class="explanation" id="exp8">
+                    <h4>Explication</h4>
+                    <p>Cypress et Playwright sont des frameworks spécialement conçus pour les tests End-to-End, permettant d'automatiser les interactions avec les navigateurs web. Jest et Mocha sont plutôt orientés tests unitaires, ESLint/SonarQube pour l'analyse statique, et Docker/Kubernetes pour la containerisation et l'orchestration.</p>
+                </div>
+            </div>
+        </form>
+
+        <div class="controls">
+            <button type="button" class="btn secondary" onclick="showAllExplanations()">Voir les explications</button>
+            <button type="button" class="btn" onclick="submitQCM()">Valider le QCM</button>
+        </div>
+
+        <div class="results" id="results">
+            <div class="score" id="scoreDisplay"></div>
+            <div id="detailedResults"></div>
+        </div>
+    </div>
+
+    <script>
+        // Timer functionality
+        let timeLeft = 20 * 60; // 20 minutes in seconds
+        const timerElement = document.getElementById('timer');
+        
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timeLeft <= 0) {
+                submitQCM();
+                return;
+            }
+            
+            timeLeft--;
+        }
+        
+        setInterval(updateTimer, 1000);
+
+        // Association question functionality
+        let selectedLeft = null;
+        let associations = [];
+        
+        document.querySelectorAll('[data-left]').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('[data-left]').forEach(el => el.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedLeft = parseInt(this.dataset.left);
+            });
+        });
+        
+        document.querySelectorAll('[data-right]').forEach(item => {
+            item.addEventListener('click', function() {
+                if (selectedLeft !== null) {
+                    const rightIndex = parseInt(this.dataset.right);
+                    associations.push([selectedLeft, rightIndex]);
+                    
+                    // Visual feedback
+                    this.style.backgroundColor = '#28a745';
+                    this.style.color = 'white';
+                    document.querySelector(`[data-left="${selectedLeft}"]`).style.backgroundColor = '#28a745';
+                    document.querySelector(`[data-left="${selectedLeft}"]`).style.color = 'white';
+                    
+                    selectedLeft = null;
+                    document.querySelectorAll('[data-left]').forEach(el => el.classList.remove('selected'));
+                    
+                    // Update hidden input
+                    document.getElementById('q4_value').value = JSON.stringify(associations);
+                }
+            });
+        });
+
+        function showAllExplanations() {
+            document.querySelectorAll('.explanation').forEach(exp => {
+                exp.classList.add('show');
+            });
+        }
+
+        function submitQCM() {
+            const form = document.getElementById('qcmForm');
+            const formData = new FormData(form);
+            
+            // Correct answers
+            const correctAnswers = {
+                q1: '0',
+                q2: 'false',
+                q3: '0',
+                q4: JSON.stringify([[0,1],[1,0],[2,2]]),
+                q5: '0',
+                q6: 'false',
+                q7: '1',
+                q8: '1'
+            };
+            
+            // Difficulty weights
+            const weights = {
+                q1: 1,    // facile
+                q2: 1.5,  // moyen
+                q3: 1.5,  // moyen
+                q4: 1.5,  // moyen
+                q5: 1,    // facile
+                q6: 1,    // facile
+                q7: 2,    // difficile
+                q8: 1.5   // moyen
+            };
+            
+            let totalPoints = 0;
+            let earnedPoints = 0;
+            let results = [];
+            
+            for (let [question, correctAnswer] of Object.entries(correctAnswers)) {
+                const userAnswer = formData.get(question) || '';
+                const isCorrect = userAnswer === correctAnswer;
+                const points = weights[question];
+                
+                totalPoints += points;
+                if (isCorrect) {
+                    earnedPoints += points;
+                }
+                
+                results.push({
+                    question,
+                    correct: isCorrect,
+                    points: isCorrect ? points : 0,
+                    maxPoints: points
+                });
+            }
+            
+            const percentage = Math.round((earnedPoints / totalPoints) * 100);
+            const passed = percentage >= 70;
+            
+            // Display results
+            const resultsDiv = document.getElementById('results');
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            const detailedResults = document.getElementById('detailedResults');
+            
+            scoreDisplay.textContent = `Score: ${earnedPoints.toFixed(1)}/${totalPoints} points (${percentage}%)`;
+            scoreDisplay.className = `score ${passed ? 'success' : percentage >= 50 ? 'warning' : 'danger'}`;
+            
+            let detailsHTML = `
+                <h3>${passed ? '✅ QCM Réussi !' : '❌ QCM Non Réussi'}</h3>
+                <p><strong>Seuil de réussite:</strong> 70% - <strong>Votre score:</strong> ${percentage}%</p>
+                <h4>Détail par question:</h4>
+                <ul>
+            `;
+            
+            results.forEach((result, index) => {
+                const questionNum = index + 1;
+                detailsHTML += `
+                    <li>Question ${questionNum}: ${result.correct ? '✅' : '❌'} 
+                    ${result.points}/${result.maxPoints} points</li>
+                `;
+            });
+            
+            detailsHTML += '</ul>';
+            
+            // Competence breakdown
+            const c8Questions = [1, 3, 5, 7]; // Questions for C8
+            const c17Questions = [2, 4, 6, 8]; // Questions for C17
+            
+            let c8Score = 0, c8Total = 0;
+            let c17Score = 0, c17Total = 0;
+            
+            results.forEach((result, index) => {
+                const questionNum = index + 1;
+                if (c8Questions.includes(questionNum)) {
+                    c8Score += result.points;
+                    c8Total += result.maxPoints;
+                } else {
+                    c17Score += result.points;
+                    c17Total += result.maxPoints;
+                }
+            });
+            
+            detailsHTML += `
+                <h4>Score par compétence:</h4>
+                <ul>
+                    <li><strong>C8 (Tests d'intégration):</strong> ${c8Score.toFixed(1)}/${c8Total} points (${Math.round((c8Score/c8Total)*100)}%)</li>
+                    <li><strong>C17 (Automatisation des tests):</strong> ${c17Score.toFixed(1)}/${c17Total} points (${Math.round((c17Score/c17Total)*100)}%)</li>
+                </ul>
+            `;
+            
+            detailedResults.innerHTML = detailsHTML;
+            resultsDiv.classList.add('show');
+            
+            // Show all explanations
+            showAllExplanations();
+            
+            // Scroll to results
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

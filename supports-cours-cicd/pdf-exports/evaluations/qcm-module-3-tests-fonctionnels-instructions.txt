@@ -1,0 +1,7 @@
+Pour convertir en PDF:
+1. Ouvrir qcm-module-3-tests-fonctionnels.html dans un navigateur
+2. Imprimer > Enregistrer au format PDF
+3. Renommer en qcm-module-3-tests-fonctionnels.pdf
+
+Ou utiliser un outil comme wkhtmltopdf:
+wkhtmltopdf "C:\Users\fredert\Documents\Work\Genesys\Ecoles\ENI\supports-cours-cicd\pdf-exports\evaluations\qcm-module-3-tests-fonctionnels.html" "C:\Users\fredert\Documents\Work\Genesys\Ecoles\ENI\supports-cours-cicd\pdf-exports\evaluations\qcm-module-3-tests-fonctionnels.pdf"

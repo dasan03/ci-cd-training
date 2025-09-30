@@ -1,0 +1,40 @@
+{
+  "name": "allure-reporting-demo",
+  "version": "1.0.0",
+  "description": "Démonstration d'Allure Report avec Jest",
+  "main": "src/taskManager.js",
+  "scripts": {
+    "test": "jest",
+    "test:allure": "jest --reporters=default --reporters=allure-jest",
+    "allure:generate": "allure generate allure-results --clean -o allure-report",
+    "allure:open": "allure open allure-report",
+    "allure:serve": "allure serve allure-results",
+    "test:report": "npm run test:allure && npm run allure:generate && npm run allure:open",
+    "test:ci": "jest --ci --coverage --reporters=default --reporters=allure-jest"
+  },
+  "keywords": ["testing", "allure", "jest", "reporting"],
+  "author": "Formation CI/CD",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "@jest/globals": "^29.0.0",
+    "allure-commandline": "^2.24.0",
+    "allure-jest": "^2.15.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "reporters": [
+      "default",
+      ["allure-jest", {
+        "outputDir": "allure-results",
+        "disableWebdriverStepsReporting": false,
+        "disableWebdriverScreenshotsReporting": false
+      }]
+    ],
+    "setupFilesAfterEnv": ["<rootDir>/test-setup.js"],
+    "testMatch": ["**/__tests__/**/*.test.js", "**/?(*.)+(spec|test).js"],
+    "collectCoverage": true,
+    "coverageDirectory": "coverage",
+    "coverageReporters": ["text", "lcov", "html"]
+  }
+}

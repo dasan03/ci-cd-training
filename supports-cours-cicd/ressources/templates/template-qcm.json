@@ -1,0 +1,68 @@
+{
+  "qcm": {
+    "id": "qcm-module-X-section-Y",
+    "titre": "QCM Module X - Section Y",
+    "description": "Évaluation des connaissances acquises dans la section Y du module X",
+    "duree_minutes": 15,
+    "module": "module-X",
+    "competences": ["C8", "C17"],
+    "questions": [
+      {
+        "id": "q1",
+        "type": "choix-multiple",
+        "question": "Quelle est la définition correcte de l'intégration continue (CI) ?",
+        "options": [
+          "Une pratique qui consiste à intégrer fréquemment les modifications de code dans un référentiel partagé",
+          "Un outil de déploiement automatique en production",
+          "Une méthode de test manuel des applications",
+          "Un processus de sauvegarde des données"
+        ],
+        "reponse_correcte": 0,
+        "explication": "L'intégration continue (CI) est une pratique de développement logiciel qui consiste à intégrer fréquemment les modifications de code dans un référentiel partagé, généralement plusieurs fois par jour.",
+        "competence": "C8",
+        "difficulte": "facile"
+      },
+      {
+        "id": "q2",
+        "type": "vrai-faux",
+        "question": "Les tests automatisés peuvent remplacer complètement les tests manuels dans tous les cas.",
+        "reponse_correcte": false,
+        "explication": "Bien que les tests automatisés soient très utiles, ils ne peuvent pas remplacer complètement les tests manuels, notamment pour les tests d'utilisabilité, d'accessibilité et certains tests exploratoires.",
+        "competence": "C17",
+        "difficulte": "moyen"
+      },
+      {
+        "id": "q3",
+        "type": "association",
+        "question": "Associez chaque type de test à sa description appropriée :",
+        "elements_gauche": [
+          "Tests unitaires",
+          "Tests d'intégration",
+          "Tests E2E"
+        ],
+        "elements_droite": [
+          "Testent l'interaction entre plusieurs composants",
+          "Testent des fonctions ou méthodes individuelles",
+          "Testent l'application complète du point de vue utilisateur"
+        ],
+        "associations_correctes": [
+          [0, 1],
+          [1, 0],
+          [2, 2]
+        ],
+        "explication": "Les tests unitaires vérifient des unités de code isolées, les tests d'intégration vérifient les interactions entre composants, et les tests E2E simulent le parcours utilisateur complet.",
+        "competence": "C8",
+        "difficulte": "moyen"
+      }
+    ],
+    "scoring": {
+      "total_points": 100,
+      "seuil_reussite": 70,
+      "ponderation_par_difficulte": {
+        "facile": 1,
+        "moyen": 1.5,
+        "difficile": 2
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+Pour convertir en PDF:
+1. Ouvrir qcm-module-1-fondamentaux.html dans un navigateur
+2. Imprimer > Enregistrer au format PDF
+3. Renommer en qcm-module-1-fondamentaux.pdf
+
+Ou utiliser un outil comme wkhtmltopdf:
+wkhtmltopdf "C:\Users\fredert\Documents\Work\Genesys\Ecoles\ENI\supports-cours-cicd\pdf-exports\evaluations\qcm-module-1-fondamentaux.html" "C:\Users\fredert\Documents\Work\Genesys\Ecoles\ENI\supports-cours-cicd\pdf-exports\evaluations\qcm-module-1-fondamentaux.pdf"

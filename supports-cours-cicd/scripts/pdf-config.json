@@ -1,0 +1,195 @@
+{
+  "version": "1.0.0",
+  "description": "Configuration pour la génération PDF des supports de cours CI/CD",
+  
+  "output": {
+    "directory": "../pdf-exports",
+    "createSubdirectories": true,
+    "overwriteExisting": true,
+    "preserveTimestamps": false
+  },
+  
+  "pandoc": {
+    "engine": "xelatex",
+    "template": "pdf-template.tex",
+    "options": {
+      "toc": true,
+      "tocDepth": 3,
+      "numberSections": true,
+      "highlightStyle": "tango",
+      "linksAsNotes": true,
+      "standalone": true
+    },
+    "variables": {
+      "geometry": "margin=2cm",
+      "fontsize": "11pt",
+      "documentclass": "article",
+      "classoption": "a4paper",
+      "lang": "fr-FR",
+      "babel-lang": "french"
+    }
+  },
+  
+  "formats": {
+    "standard": {
+      "description": "Format standard A4 pour impression",
+      "variables": {
+        "geometry": "margin=2cm",
+        "fontsize": "11pt",
+        "documentclass": "article"
+      }
+    },
+    "presentation": {
+      "description": "Format optimisé pour présentation",
+      "variables": {
+        "geometry": "margin=1.5cm",
+        "fontsize": "12pt",
+        "documentclass": "article"
+      }
+    },
+    "compact": {
+      "description": "Format compact pour économiser le papier",
+      "variables": {
+        "geometry": "margin=1cm",
+        "fontsize": "10pt",
+        "documentclass": "article"
+      }
+    }
+  },
+  
+  "files": {
+    "main": [
+      {
+        "source": "index.md",
+        "output": "supports-cours-cicd-index.pdf",
+        "title": "Supports de Cours CI/CD - Index Général",
+        "type": "index",
+        "format": "standard"
+      },
+      {
+        "source": "guides/guide-formateur.md",
+        "output": "guide-formateur.pdf",
+        "title": "Guide Formateur - Formation CI/CD",
+        "type": "guide",
+        "format": "standard"
+      },
+      {
+        "source": "guides/guide-apprenant.md",
+        "output": "guide-apprenant.pdf",
+        "title": "Guide Apprenant - Formation CI/CD",
+        "type": "guide",
+        "format": "standard"
+      }
+    ],
+    
+    "modules": [
+      {
+        "id": "module-1-fondamentaux",
+        "title": "Module 1 - Fondamentaux CI/CD",
+        "format": "standard"
+      },
+      {
+        "id": "module-2-ia-tests",
+        "title": "Module 2 - IA et Automatisation des Tests",
+        "format": "standard"
+      },
+      {
+        "id": "module-3-tests-fonctionnels",
+        "title": "Module 3 - Tests Fonctionnels et Non-Fonctionnels",
+        "format": "standard"
+      },
+      {
+        "id": "module-4-documentation",
+        "title": "Module 4 - Documentation et Monitoring",
+        "format": "standard"
+      }
+    ]
+  },
+  
+  "consolidation": {
+    "enabled": true,
+    "filename": "supports-cours-cicd-complet.pdf",
+    "title": "Formation CI/CD - Supports Complets",
+    "subtitle": "Intégration Continue et Déploiement Continu",
+    "author": "Formation EADL",
+    "includeTableOfContents": true,
+    "includeListOfFigures": false,
+    "includeListOfTables": false,
+    "pageBreakBetweenSections": true,
+    "format": "standard"
+  },
+  
+  "quality": {
+    "imageOptimization": true,
+    "maxImageWidth": 800,
+    "maxImageHeight": 600,
+    "compressImages": true,
+    "validateLinks": true,
+    "generateBookmarks": true,
+    "embedFonts": true
+  },
+  
+  "fallback": {
+    "enabled": true,
+    "format": "html",
+    "includeCSS": true,
+    "responsiveDesign": true,
+    "printOptimized": true,
+    "generateInstructions": true
+  },
+  
+  "logging": {
+    "level": "info",
+    "logFile": "pdf-generation.log",
+    "timestampFormat": "YYYY-MM-DD HH:mm:ss",
+    "includeStackTrace": false
+  },
+  
+  "performance": {
+    "parallelProcessing": true,
+    "maxConcurrentJobs": 4,
+    "timeoutSeconds": 300,
+    "retryAttempts": 2,
+    "cacheEnabled": true
+  },
+  
+  "validation": {
+    "checkSourceFiles": true,
+    "validateMarkdown": true,
+    "checkImagePaths": true,
+    "validateInternalLinks": true,
+    "requireMinimumContent": true,
+    "minimumWordCount": 100
+  },
+  
+  "metadata": {
+    "creator": "Supports CI/CD Generator",
+    "producer": "Pandoc + LaTeX",
+    "subject": "Formation CI/CD",
+    "keywords": ["CI/CD", "Formation", "DevOps", "Tests", "Automatisation"],
+    "language": "fr-FR",
+    "creationDate": "auto",
+    "modificationDate": "auto"
+  },
+  
+  "customization": {
+    "theme": {
+      "primaryColor": "#3498db",
+      "secondaryColor": "#2980b9",
+      "accentColor": "#e74c3c",
+      "textColor": "#2c3e50",
+      "backgroundColor": "#ffffff"
+    },
+    "fonts": {
+      "main": "Latin Modern Roman",
+      "headings": "Latin Modern Sans",
+      "code": "Latin Modern Mono"
+    },
+    "layout": {
+      "headerHeight": "1cm",
+      "footerHeight": "1cm",
+      "lineSpacing": 1.2,
+      "paragraphSpacing": "6pt"
+    }
+  }
+}

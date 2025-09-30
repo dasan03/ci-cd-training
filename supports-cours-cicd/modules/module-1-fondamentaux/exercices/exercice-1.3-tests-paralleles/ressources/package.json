@@ -1,0 +1,75 @@
+{
+  "name": "todo-app-parallel-tests",
+  "version": "1.0.0",
+  "description": "Application de démonstration pour les tests en parallèle",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "jest --runInBand",
+    "test:parallel": "jest --maxWorkers=4",
+    "test:parallel-auto": "jest",
+    "test:unit": "jest --testPathPattern=unit --maxWorkers=4",
+    "test:integration": "jest --testPathPattern=integration --maxWorkers=2",
+    "test:performance": "jest --testPathPattern=performance --runInBand",
+    "test:load": "jest --testPathPattern=load --maxWorkers=8",
+    "test:watch": "jest --watch --maxWorkers=2",
+    "test:coverage": "jest --coverage --maxWorkers=4",
+    "test:sequential": "jest --runInBand --verbose",
+    "test:benchmark": "node scripts/benchmark-tests.js",
+    "test:docker-parallel": "docker-compose -f docker-compose.parallel.yml up --scale test-runner=4",
+    "test:ci": "jest --ci --coverage --maxWorkers=2 --passWithNoTests"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.5.0",
+    "cors": "^2.8.5",
+    "helmet": "^7.0.0",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.6.2",
+    "supertest": "^6.3.3",
+    "@types/jest": "^29.5.4",
+    "mongodb-memory-server": "^8.15.1",
+    "artillery": "^2.0.0",
+    "clinic": "^12.1.0",
+    "autocannon": "^7.12.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": ["<rootDir>/tests/setup.js"],
+    "testTimeout": 30000,
+    "maxWorkers": "50%",
+    "workerIdleMemoryLimit": "512MB",
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/app.js"
+    ],
+    "coverageDirectory": "coverage",
+    "coverageReporters": ["text", "lcov", "html"],
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ],
+    "verbose": false,
+    "silent": false,
+    "forceExit": true,
+    "detectOpenHandles": true,
+    "projects": [
+      {
+        "displayName": "unit",
+        "testMatch": ["**/tests/unit/**/*.test.js"],
+        "maxWorkers": 4
+      },
+      {
+        "displayName": "integration", 
+        "testMatch": ["**/tests/integration/**/*.test.js"],
+        "maxWorkers": 2
+      },
+      {
+        "displayName": "performance",
+        "testMatch": ["**/tests/performance/**/*.test.js"],
+        "maxWorkers": 1
+      }
+    ]
+  }
+}

@@ -1,0 +1,149 @@
+name: Tests avec Docker
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'supports-cours-cicd/modules/module-1-fondamentaux/exercices/exercice-1.2-tests-docker/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'supports-cours-cicd/modules/module-1-fondamentaux/exercices/exercice-1.2-tests-docker/**'
+
+env:
+  WORKING_DIRECTORY: supports-cours-cicd/modules/module-1-fondamentaux/exercices/exercice-1.2-tests-docker/ressources
+
+jobs:
+  test-docker:
+    name: Tests avec Docker Compose
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout du code
+      uses: actions/checkout@v4
+    
+    - name: Configuration Docker Buildx
+      uses: docker/setup-buildx-action@v3
+    
+    - name: Cache des layers Docker
+      uses: actions/cache@v3
+      with:
+        path: /tmp/.buildx-cache
+        key: ${{ runner.os }}-buildx-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-buildx-
+    
+    - name: Vérification de la structure du projet
+      run: |
+        ls -la ${{ env.WORKING_DIRECTORY }}
+        cat ${{ env.WORKING_DIRECTORY }}/package.json
+    
+    - name: Construction des images Docker
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        docker-compose -f docker-compose.test.yml build --parallel
+    
+    - name: Démarrage des services de test
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        docker-compose -f docker-compose.test.yml up -d mongodb-test
+    
+    - name: Attente de la disponibilité de MongoDB
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        timeout 60 bash -c 'until docker-compose -f docker-compose.test.yml exec -T mongodb-test mongosh --eval "db.adminCommand(\"ping\")" > /dev/null 2>&1; do sleep 2; done'
+    
+    - name: Exécution des tests unitaires
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        docker-compose -f docker-compose.test.yml run --rm app-unit-tests
+    
+    - name: Exécution des tests d'intégration
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        docker-compose -f docker-compose.test.yml run --rm app-integration-tests
+    
+    - name: Collecte des logs en cas d'échec
+      if: failure()
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        echo "=== Logs MongoDB ==="
+        docker-compose -f docker-compose.test.yml logs mongodb-test
+        echo "=== Logs Application ==="
+        docker-compose -f docker-compose.test.yml logs app-unit-tests app-integration-tests
+    
+    - name: Nettoyage des conteneurs
+      if: always()
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        docker-compose -f docker-compose.test.yml down -v --remove-orphans
+    
+    - name: Nettoyage des images Docker
+      if: always()
+      run: |
+        docker system prune -f
+        docker volume prune -f
+
+  test-performance:
+    name: Tests de performance Docker
+    runs-on: ubuntu-latest
+    needs: test-docker
+    
+    steps:
+    - name: Checkout du code
+      uses: actions/checkout@v4
+    
+    - name: Test de performance de construction
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        time docker build -f Dockerfile.test -t test-perf .
+    
+    - name: Test de performance d'exécution
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        docker-compose -f docker-compose.test.yml up -d mongodb-test
+        timeout 60 bash -c 'until docker-compose -f docker-compose.test.yml exec -T mongodb-test mongosh --eval "db.adminCommand(\"ping\")" > /dev/null 2>&1; do sleep 2; done'
+        time docker-compose -f docker-compose.test.yml run --rm app-all-tests
+    
+    - name: Analyse de l'utilisation des ressources
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        docker stats --no-stream --format "table {{.Container}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.NetIO}}\t{{.BlockIO}}"
+    
+    - name: Nettoyage final
+      if: always()
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        docker-compose -f docker-compose.test.yml down -v --remove-orphans
+
+  security-scan:
+    name: Scan de sécurité Docker
+    runs-on: ubuntu-latest
+    needs: test-docker
+    
+    steps:
+    - name: Checkout du code
+      uses: actions/checkout@v4
+    
+    - name: Construction de l'image pour le scan
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        docker build -f Dockerfile.test -t security-scan:latest .
+    
+    - name: Scan de sécurité avec Trivy
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'security-scan:latest'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+    
+    - name: Upload des résultats de sécurité
+      uses: github/codeql-action/upload-sarif@v2
+      if: always()
+      with:
+        sarif_file: 'trivy-results.sarif'
+    
+    - name: Affichage du résumé de sécurité
+      run: |
+        docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
+          -v $PWD:/tmp aquasec/trivy:latest image --format table security-scan:latest

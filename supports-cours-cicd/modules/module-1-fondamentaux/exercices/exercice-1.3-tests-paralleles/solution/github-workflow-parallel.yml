@@ -1,0 +1,341 @@
+name: Tests Parallèles Optimisés
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'supports-cours-cicd/modules/module-1-fondamentaux/exercices/exercice-1.3-tests-paralleles/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'supports-cours-cicd/modules/module-1-fondamentaux/exercices/exercice-1.3-tests-paralleles/**'
+
+env:
+  WORKING_DIRECTORY: supports-cours-cicd/modules/module-1-fondamentaux/exercices/exercice-1.3-tests-paralleles/ressources
+
+jobs:
+  # Job de préparation et validation
+  prepare:
+    name: Préparation de l'environnement
+    runs-on: ubuntu-latest
+    outputs:
+      test-matrix: ${{ steps.setup-matrix.outputs.matrix }}
+      cache-key: ${{ steps.cache-key.outputs.key }}
+    
+    steps:
+    - name: Checkout du code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: ${{ env.WORKING_DIRECTORY }}/package-lock.json
+    
+    - name: Installation des dépendances
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        npm ci
+    
+    - name: Génération de la clé de cache
+      id: cache-key
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        echo "key=test-deps-${{ hashFiles('**/package-lock.json') }}-${{ github.sha }}" >> $GITHUB_OUTPUT
+    
+    - name: Configuration de la matrice de tests
+      id: setup-matrix
+      run: |
+        echo 'matrix={
+          "include": [
+            {"test-type": "unit", "workers": 4, "timeout": 10},
+            {"test-type": "integration", "workers": 2, "timeout": 15},
+            {"test-type": "performance", "workers": 1, "timeout": 20}
+          ]
+        }' >> $GITHUB_OUTPUT
+    
+    - name: Validation de la structure du projet
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        npm run test -- --listTests --passWithNoTests
+
+  # Tests parallèles par matrice
+  test-parallel:
+    name: Tests ${{ matrix.test-type }} (Workers: ${{ matrix.workers }})
+    runs-on: ubuntu-latest
+    needs: prepare
+    timeout-minutes: ${{ matrix.timeout }}
+    
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.prepare.outputs.test-matrix) }}
+    
+    services:
+      mongodb:
+        image: mongo:6.0-alpine
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --eval 'db.adminCommand(\"ping\")'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    
+    steps:
+    - name: Checkout du code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: ${{ env.WORKING_DIRECTORY }}/package-lock.json
+    
+    - name: Restauration du cache des dépendances
+      uses: actions/cache@v3
+      with:
+        path: ${{ env.WORKING_DIRECTORY }}/node_modules
+        key: ${{ needs.prepare.outputs.cache-key }}
+    
+    - name: Installation des dépendances (si cache manqué)
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        if [ ! -d "node_modules" ]; then npm ci; fi
+    
+    - name: Configuration de l'environnement de test
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        mkdir -p test-results coverage logs
+        echo "MONGODB_URI=mongodb://localhost:27017/todoapp_test_${{ matrix.test-type }}_${{ github.run_id }}" >> $GITHUB_ENV
+        echo "JEST_WORKER_ID=${{ matrix.test-type }}-${{ github.run_number }}" >> $GITHUB_ENV
+        echo "TEST_TYPE=${{ matrix.test-type }}" >> $GITHUB_ENV
+    
+    - name: Exécution des tests ${{ matrix.test-type }}
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        npm run test:${{ matrix.test-type }} -- \
+          --maxWorkers=${{ matrix.workers }} \
+          --coverage \
+          --coverageDirectory=coverage/${{ matrix.test-type }} \
+          --outputFile=test-results/${{ matrix.test-type }}-results.json \
+          --verbose
+    
+    - name: Upload des résultats de tests
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-results-${{ matrix.test-type }}
+        path: |
+          ${{ env.WORKING_DIRECTORY }}/test-results/
+          ${{ env.WORKING_DIRECTORY }}/coverage/
+        retention-days: 7
+    
+    - name: Upload de la couverture vers Codecov
+      uses: codecov/codecov-action@v3
+      if: matrix.test-type != 'performance'
+      with:
+        directory: ${{ env.WORKING_DIRECTORY }}/coverage/${{ matrix.test-type }}
+        flags: ${{ matrix.test-type }}
+        name: ${{ matrix.test-type }}-coverage
+
+  # Tests de charge avec Docker
+  load-test-docker:
+    name: Tests de charge avec Docker
+    runs-on: ubuntu-latest
+    needs: prepare
+    timeout-minutes: 25
+    
+    steps:
+    - name: Checkout du code
+      uses: actions/checkout@v4
+    
+    - name: Configuration Docker Buildx
+      uses: docker/setup-buildx-action@v3
+    
+    - name: Cache des layers Docker
+      uses: actions/cache@v3
+      with:
+        path: /tmp/.buildx-cache
+        key: ${{ runner.os }}-buildx-parallel-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-buildx-parallel-
+    
+    - name: Construction des images Docker
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        docker-compose -f docker-compose.parallel.yml build --parallel
+    
+    - name: Exécution des tests de charge parallèles
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        docker-compose -f docker-compose.parallel.yml up \
+          --scale unit-tests=2 \
+          --scale integration-tests=2 \
+          --scale load-tests=2 \
+          --abort-on-container-exit
+    
+    - name: Collecte des logs Docker
+      if: always()
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        docker-compose -f docker-compose.parallel.yml logs > docker-logs.txt
+    
+    - name: Upload des logs Docker
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: docker-logs
+        path: ${{ env.WORKING_DIRECTORY }}/docker-logs.txt
+    
+    - name: Nettoyage Docker
+      if: always()
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        docker-compose -f docker-compose.parallel.yml down -v --remove-orphans
+
+  # Benchmark de performance
+  benchmark:
+    name: Benchmark de performance
+    runs-on: ubuntu-latest
+    needs: [prepare, test-parallel]
+    if: always() && needs.test-parallel.result == 'success'
+    
+    services:
+      mongodb:
+        image: mongo:6.0-alpine
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --eval 'db.adminCommand(\"ping\")'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    
+    steps:
+    - name: Checkout du code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: ${{ env.WORKING_DIRECTORY }}/package-lock.json
+    
+    - name: Installation des dépendances
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        npm ci
+    
+    - name: Exécution du benchmark
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        npm run test:benchmark
+    
+    - name: Upload du rapport de benchmark
+      uses: actions/upload-artifact@v3
+      with:
+        name: benchmark-report
+        path: |
+          ${{ env.WORKING_DIRECTORY }}/test-results/benchmark-report.html
+          ${{ env.WORKING_DIRECTORY }}/test-results/benchmark-report.json
+
+  # Consolidation des résultats
+  consolidate-results:
+    name: Consolidation des résultats
+    runs-on: ubuntu-latest
+    needs: [test-parallel, load-test-docker, benchmark]
+    if: always()
+    
+    steps:
+    - name: Checkout du code
+      uses: actions/checkout@v4
+    
+    - name: Download de tous les artefacts
+      uses: actions/download-artifact@v3
+      with:
+        path: artifacts/
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+    
+    - name: Consolidation des rapports
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        node scripts/consolidate-reports.js ../../../artifacts/
+    
+    - name: Génération du rapport final
+      run: |
+        cd ${{ env.WORKING_DIRECTORY }}
+        echo "# 📊 Rapport de Tests Parallèles" > final-report.md
+        echo "" >> final-report.md
+        echo "## Résumé de l'exécution" >> final-report.md
+        echo "- **Date**: $(date)" >> final-report.md
+        echo "- **Commit**: ${{ github.sha }}" >> final-report.md
+        echo "- **Branche**: ${{ github.ref_name }}" >> final-report.md
+        echo "" >> final-report.md
+        
+        # Ajouter les métriques de performance si disponibles
+        if [ -f "test-results/benchmark-report.json" ]; then
+          echo "## Métriques de performance" >> final-report.md
+          node -e "
+            const report = require('./test-results/benchmark-report.json');
+            console.log('- **Accélération globale**: ' + (report.results.comparison.all?.speedup || 'N/A') + 'x');
+            console.log('- **Temps économisé**: ' + (report.results.comparison.all?.timeSaved || 'N/A') + 'ms');
+          " >> final-report.md
+        fi
+    
+    - name: Commentaire PR avec résultats
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          const reportPath = '${{ env.WORKING_DIRECTORY }}/final-report.md';
+          if (fs.existsSync(reportPath)) {
+            const report = fs.readFileSync(reportPath, 'utf8');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: report
+            });
+          }
+    
+    - name: Upload du rapport final
+      uses: actions/upload-artifact@v3
+      with:
+        name: final-report
+        path: ${{ env.WORKING_DIRECTORY }}/final-report.md
+
+  # Notification de statut
+  notify:
+    name: Notification de statut
+    runs-on: ubuntu-latest
+    needs: [test-parallel, load-test-docker, benchmark, consolidate-results]
+    if: always()
+    
+    steps:
+    - name: Détermination du statut global
+      id: status
+      run: |
+        if [[ "${{ needs.test-parallel.result }}" == "success" && "${{ needs.load-test-docker.result }}" == "success" ]]; then
+          echo "status=success" >> $GITHUB_OUTPUT
+          echo "message=✅ Tous les tests parallèles ont réussi" >> $GITHUB_OUTPUT
+        else
+          echo "status=failure" >> $GITHUB_OUTPUT
+          echo "message=❌ Certains tests parallèles ont échoué" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Affichage du statut
+      run: |
+        echo "${{ steps.status.outputs.message }}"
+        echo "Détails:"
+        echo "- Tests parallèles: ${{ needs.test-parallel.result }}"
+        echo "- Tests Docker: ${{ needs.load-test-docker.result }}"
+        echo "- Benchmark: ${{ needs.benchmark.result }}"
+        echo "- Consolidation: ${{ needs.consolidate-results.result }}"

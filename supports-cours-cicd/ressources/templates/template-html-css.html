@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{TITRE_MODULE}} - Formation CI/CD</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>Formation CI/CD</h1>
+            </div>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#contenu">Contenu</a></li>
+                    <li><a href="#exercices">Exercices</a></li>
+                    <li><a href="#evaluation">Évaluation</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- Section Titre -->
+            <section class="hero-section">
+                <div class="module-badge">{{MODULE_NUMBER}}</div>
+                <h1 class="module-title">{{TITRE_MODULE}}</h1>
+                <p class="module-description">{{DESCRIPTION_MODULE}}</p>
+                <div class="module-meta">
+                    <span class="duration">⏱️ Durée: {{DUREE}}</span>
+                    <span class="difficulty">📊 Niveau: {{NIVEAU}}</span>
+                </div>
+            </section>
+
+            <!-- Section Objectifs -->
+            <section id="introduction" class="content-section">
+                <h2>🎯 Objectifs d'Apprentissage</h2>
+                <ul class="objectives-list">
+                    <!-- Remplacer par les objectifs spécifiques -->
+                    <li>{{OBJECTIF_1}}</li>
+                    <li>{{OBJECTIF_2}}</li>
+                    <li>{{OBJECTIF_3}}</li>
+                </ul>
+            </section>
+
+            <!-- Section Contenu Théorique -->
+            <section id="contenu" class="content-section">
+                <h2>📚 Contenu Théorique</h2>
+                
+                <div class="theory-block">
+                    <h3>{{SOUS_TITRE_1}}</h3>
+                    <p>{{CONTENU_THEORIQUE}}</p>
+                    
+                    <!-- Bloc de code exemple -->
+                    <div class="code-block">
+                        <pre><code class="language-yaml">{{CODE_EXEMPLE}}</code></pre>
+                    </div>
+                </div>
+
+                <!-- Bloc d'attention -->
+                <div class="alert alert-info">
+                    <strong>💡 Point Important:</strong>
+                    {{POINT_IMPORTANT}}
+                </div>
+            </section>
+
+            <!-- Section Exercices -->
+            <section id="exercices" class="content-section">
+                <h2>🔧 Exercices Pratiques</h2>
+                
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <h3>{{TITRE_EXERCICE}}</h3>
+                        <span class="exercise-duration">{{DUREE_EXERCICE}}</span>
+                    </div>
+                    <div class="exercise-content">
+                        <h4>Objectif:</h4>
+                        <p>{{OBJECTIF_EXERCICE}}</p>
+                        
+                        <h4>Prérequis:</h4>
+                        <ul>
+                            <li>{{PREREQUIS_1}}</li>
+                            <li>{{PREREQUIS_2}}</li>
+                        </ul>
+                        
+                        <h4>Instructions:</h4>
+                        <ol class="instructions-list">
+                            <li>{{INSTRUCTION_1}}</li>
+                            <li>{{INSTRUCTION_2}}</li>
+                            <li>{{INSTRUCTION_3}}</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section QCM -->
+            <section id="evaluation" class="content-section">
+                <h2>📋 Évaluation</h2>
+                <div class="qcm-container">
+                    <div class="question-card">
+                        <h3>Question {{NUMERO_QUESTION}}</h3>
+                        <p class="question-text">{{TEXTE_QUESTION}}</p>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q{{NUMERO_QUESTION}}" value="a">
+                                <span>{{OPTION_A}}</span>
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q{{NUMERO_QUESTION}}" value="b">
+                                <span>{{OPTION_B}}</span>
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q{{NUMERO_QUESTION}}" value="c">
+                                <span>{{OPTION_C}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Formation CI/CD - Tous droits réservés</p>
+            <div class="footer-links">
+                <a href="#" class="footer-link">Guide Formateur</a>
+                <a href="#" class="footer-link">Ressources</a>
+                <a href="#" class="footer-link">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="scripts.js"></script>
+</body>
+</html>
