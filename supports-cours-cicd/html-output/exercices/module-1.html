@@ -6,125 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exercices MODULE-1 - Formation CI/CD</title>
     <link rel="stylesheet" href="../assets/css/styles.css">
-    <style>
-      .exercise-card {
-        background: var(--card-background);
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        margin-bottom: 2rem;
-        overflow: hidden;
-      }
-      
-      .exercise-header {
-        background: var(--primary-color);
-        color: white;
-        padding: 1rem 1.5rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      
-      .exercise-header h3 {
-        margin: 0;
-        color: white;
-      }
-      
-      .exercise-duration {
-        background: rgba(255, 255, 255, 0.2);
-        padding: 0.25rem 0.75rem;
-        border-radius: 12px;
-        font-size: 0.9rem;
-      }
-      
-      .exercise-content {
-        padding: 1.5rem;
-      }
-      
-      .exercise-form {
-        background: #f8fafc;
-        border-radius: 8px;
-        padding: 1.5rem;
-        margin-top: 1rem;
-      }
-      
-      .form-group {
-        margin-bottom: 1rem;
-      }
-      
-      .form-group label {
-        display: block;
-        margin-bottom: 0.5rem;
-        font-weight: 500;
-      }
-      
-      .form-group textarea {
-        width: 100%;
-        min-height: 100px;
-        padding: 0.75rem;
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        font-size: 1rem;
-        font-family: 'Courier New', monospace;
-        resize: vertical;
-      }
-      
-      .difficulty-badge {
-        display: inline-block;
-        padding: 0.25rem 0.75rem;
-        border-radius: 12px;
-        font-size: 0.8rem;
-        font-weight: bold;
-        text-transform: uppercase;
-        margin-bottom: 1rem;
-      }
-      
-      .difficulty-débutant {
-        background: rgba(16, 185, 129, 0.1);
-        color: var(--success-color);
-      }
-      
-      .difficulty-intermédiaire {
-        background: rgba(37, 99, 235, 0.1);
-        color: var(--primary-color);
-      }
-      
-      .difficulty-avancé {
-        background: rgba(245, 158, 11, 0.1);
-        color: var(--warning-color);
-      }
-      
-      .exercise-result {
-        margin-top: 1rem;
-        padding: 1rem;
-        border-radius: 8px;
-        display: none;
-      }
-      
-      .exercise-result.success {
-        background: rgba(16, 185, 129, 0.1);
-        border: 1px solid var(--success-color);
-        color: var(--success-color);
-      }
-      
-      .exercise-result.error {
-        background: rgba(239, 68, 68, 0.1);
-        border: 1px solid var(--error-color);
-        color: var(--error-color);
-      }
-      
-      .alert {
-        padding: 1rem;
-        border-radius: 8px;
-        margin: 1rem 0;
-        border-left: 4px solid;
-      }
-      
-      .alert-info {
-        background: #dbeafe;
-        border-color: var(--primary-color);
-        color: #1e40af;
-      }
-    </style>
 </head>
 <body>
     <header class="header">
@@ -135,6 +16,7 @@
             <nav class="navigation">
                 <ul>
                     <li><a href="../index.html">Accueil</a></li>
+                    <li><a href="../modules/module-1.html">Retour au module</a></li>
                     <li><a href="#exercices">Exercices</a></li>
                 </ul>
             </nav>
@@ -150,12 +32,6 @@
             </section>
 
             <section id="exercices" class="content-section">
-                <div class="alert alert-info">
-                    <strong>💡 Instructions :</strong>
-                    Complétez les exercices ci-dessous en saisissant votre code ou vos réponses dans les zones prévues. 
-                    Cliquez sur "Valider" pour vérifier votre travail.
-                </div>
-                
                 <h2>🔧 Liste des Exercices</h2>
                 
       <div class="exercise-card">
@@ -164,15 +40,11 @@
           <span class="exercise-duration">30 min</span>
         </div>
         <div class="exercise-content">
-          <div class="difficulty-badge difficulty-débutant">Débutant</div>
-          
-          <p><strong>🎯 Objectif:</strong> Créer votre premier pipeline CI/CD automatisé</p>
+          <p><strong>Objectif:</strong> Créer votre premier pipeline CI/CD automatisé</p>
           <p>Configurez un workflow GitHub Actions pour automatiser les tests et le déploiement</p>
-          
-          <h4>📋 Instructions:</h4>
-          <ol>
-            <li>Créez un fichier .github/workflows/ci.yml</li><li>Configurez les étapes de build et test</li><li>Ajoutez le déploiement automatique</li><li>Testez votre pipeline</li>
-          </ol>
+          <div class="exercise-meta">
+            <span class="difficulty-badge difficulty-débutant">Débutant</span>
+          </div>
           
           <div class="exercise-form" data-exercise-id="ex-1-1">
             <h4>💻 Zone de Travail</h4>
@@ -182,16 +54,13 @@
             </div>
             <div class="form-group">
               <label for="ex-1-1-result">Résultat obtenu:</label>
-              <textarea id="ex-1-1-result" name="result" placeholder="Décrivez le résultat obtenu, les erreurs rencontrées, etc." required></textarea>
+              <textarea id="ex-1-1-result" name="result" placeholder="Décrivez le résultat obtenu..."></textarea>
             </div>
             <div class="form-group">
-              <label for="ex-1-1-notes">Notes personnelles (optionnel):</label>
-              <textarea id="ex-1-1-notes" name="notes" placeholder="Vos observations, apprentissages, questions..."></textarea>
+              <label for="ex-1-1-notes">Notes personnelles:</label>
+              <textarea id="ex-1-1-notes" name="notes" placeholder="Vos observations et apprentissages..."></textarea>
             </div>
-            <button type="button" class="btn btn-primary" onclick="validateExercise('ex-1-1')">
-              ✅ Valider l'exercice
-            </button>
-            <div class="exercise-result"></div>
+            <button type="button" class="btn btn-primary submit-exercise">Valider l'exercice</button>
           </div>
         </div>
       </div>
@@ -202,15 +71,11 @@
           <span class="exercise-duration">45 min</span>
         </div>
         <div class="exercise-content">
-          <div class="difficulty-badge difficulty-intermédiaire">Intermédiaire</div>
-          
-          <p><strong>🎯 Objectif:</strong> Intégrer Docker dans votre pipeline de tests</p>
+          <p><strong>Objectif:</strong> Intégrer Docker dans votre pipeline de tests</p>
           <p>Utilisez Docker pour créer un environnement de test reproductible</p>
-          
-          <h4>📋 Instructions:</h4>
-          <ol>
-            <li>Créez un Dockerfile pour votre application</li><li>Configurez docker-compose pour les tests</li><li>Intégrez Docker dans votre pipeline CI</li><li>Vérifiez l'isolation des tests</li>
-          </ol>
+          <div class="exercise-meta">
+            <span class="difficulty-badge difficulty-intermédiaire">Intermédiaire</span>
+          </div>
           
           <div class="exercise-form" data-exercise-id="ex-1-2">
             <h4>💻 Zone de Travail</h4>
@@ -220,16 +85,13 @@
             </div>
             <div class="form-group">
               <label for="ex-1-2-result">Résultat obtenu:</label>
-              <textarea id="ex-1-2-result" name="result" placeholder="Décrivez le résultat obtenu, les erreurs rencontrées, etc." required></textarea>
+              <textarea id="ex-1-2-result" name="result" placeholder="Décrivez le résultat obtenu..."></textarea>
             </div>
             <div class="form-group">
-              <label for="ex-1-2-notes">Notes personnelles (optionnel):</label>
-              <textarea id="ex-1-2-notes" name="notes" placeholder="Vos observations, apprentissages, questions..."></textarea>
+              <label for="ex-1-2-notes">Notes personnelles:</label>
+              <textarea id="ex-1-2-notes" name="notes" placeholder="Vos observations et apprentissages..."></textarea>
             </div>
-            <button type="button" class="btn btn-primary" onclick="validateExercise('ex-1-2')">
-              ✅ Valider l'exercice
-            </button>
-            <div class="exercise-result"></div>
+            <button type="button" class="btn btn-primary submit-exercise">Valider l'exercice</button>
           </div>
         </div>
       </div>
@@ -240,15 +102,11 @@
           <span class="exercise-duration">40 min</span>
         </div>
         <div class="exercise-content">
-          <div class="difficulty-badge difficulty-intermédiaire">Intermédiaire</div>
-          
-          <p><strong>🎯 Objectif:</strong> Optimiser les temps d'exécution avec la parallélisation</p>
+          <p><strong>Objectif:</strong> Optimiser les temps d'exécution avec la parallélisation</p>
           <p>Configurez l'exécution parallèle des tests pour améliorer les performances</p>
-          
-          <h4>📋 Instructions:</h4>
-          <ol>
-            <li>Analysez votre suite de tests actuelle</li><li>Identifiez les tests parallélisables</li><li>Configurez la matrice de tests</li><li>Mesurez l'amélioration des performances</li>
-          </ol>
+          <div class="exercise-meta">
+            <span class="difficulty-badge difficulty-intermédiaire">Intermédiaire</span>
+          </div>
           
           <div class="exercise-form" data-exercise-id="ex-1-3">
             <h4>💻 Zone de Travail</h4>
@@ -258,16 +116,13 @@
             </div>
             <div class="form-group">
               <label for="ex-1-3-result">Résultat obtenu:</label>
-              <textarea id="ex-1-3-result" name="result" placeholder="Décrivez le résultat obtenu, les erreurs rencontrées, etc." required></textarea>
+              <textarea id="ex-1-3-result" name="result" placeholder="Décrivez le résultat obtenu..."></textarea>
             </div>
             <div class="form-group">
-              <label for="ex-1-3-notes">Notes personnelles (optionnel):</label>
-              <textarea id="ex-1-3-notes" name="notes" placeholder="Vos observations, apprentissages, questions..."></textarea>
+              <label for="ex-1-3-notes">Notes personnelles:</label>
+              <textarea id="ex-1-3-notes" name="notes" placeholder="Vos observations et apprentissages..."></textarea>
             </div>
-            <button type="button" class="btn btn-primary" onclick="validateExercise('ex-1-3')">
-              ✅ Valider l'exercice
-            </button>
-            <div class="exercise-result"></div>
+            <button type="button" class="btn btn-primary submit-exercise">Valider l'exercice</button>
           </div>
         </div>
       </div>
@@ -279,53 +134,14 @@
     <footer class="footer">
         <div class="container">
             <p>&copy; 2024 Formation CI/CD - Tous droits réservés</p>
+            <div class="footer-links">
+                <a href="../guides/guide-formateur.html" class="footer-link">Guide Formateur</a>
+                <a href="../guides/guide-apprenant.html" class="footer-link">Guide Apprenant</a>
+                <a href="../index.html" class="footer-link">Accueil</a>
+            </div>
         </div>
     </footer>
 
     <script src="../assets/js/scripts.js"></script>
-    <script>
-      // JavaScript pour la validation des exercices
-      function validateExercise(exerciseId) {
-        const form = document.querySelector(`[data-exercise-id="${exerciseId}"]`);
-        const resultDiv = form.querySelector('.exercise-result');
-        const codeInput = form.querySelector('textarea[name="code"]');
-        const resultInput = form.querySelector('textarea[name="result"]');
-        
-        // Validation basique : vérifier que les champs sont remplis
-        const isValid = codeInput.value.trim() !== '' && resultInput.value.trim() !== '';
-        
-        resultDiv.style.display = 'block';
-        resultDiv.className = 'exercise-result ' + (isValid ? 'success' : 'error');
-        
-        if (isValid) {
-          resultDiv.innerHTML = '<strong>✅ Exercice validé !</strong><br>Félicitations, vous avez complété cet exercice.';
-        } else {
-          resultDiv.innerHTML = '<strong>❌ Exercice incomplet</strong><br>Veuillez compléter tous les champs requis.';
-        }
-      }
-      
-      // Sauvegarde automatique dans le localStorage
-      document.addEventListener('input', (e) => {
-        if (e.target.tagName === 'TEXTAREA') {
-          const exerciseId = e.target.closest('[data-exercise-id]').dataset.exerciseId;
-          const fieldName = e.target.name;
-          localStorage.setItem(`exercise_${exerciseId}_${fieldName}`, e.target.value);
-        }
-      });
-      
-      // Restauration des données sauvegardées
-      document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('[data-exercise-id]').forEach(form => {
-          const exerciseId = form.dataset.exerciseId;
-          form.querySelectorAll('textarea').forEach(textarea => {
-            const fieldName = textarea.name;
-            const savedValue = localStorage.getItem(`exercise_${exerciseId}_${fieldName}`);
-            if (savedValue) {
-              textarea.value = savedValue;
-            }
-          });
-        });
-      });
-    </script>
 </body>
 </html>

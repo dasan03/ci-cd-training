@@ -1,0 +1,146 @@
+{
+  "configuration": {
+    "version": "1.0.0",
+    "derniere_mise_a_jour": "2024-12-19",
+    "formats_supportes": ["png", "jpg", "svg", "md"],
+    "resolution_minimale": "1920x1080",
+    "style": {
+      "couleurs_principales": {
+        "succes": "#e8f5e8",
+        "attention": "#fff3e0", 
+        "erreur": "#ffebee",
+        "info": "#e3f2fd",
+        "neutre": "#f3e5f5"
+      },
+      "police": "Arial, sans-serif",
+      "taille_annotations": "14px"
+    }
+  },
+  "diagrammes": {
+    "architecture-cicd-generale": {
+      "fichier": "diagrammes/architecture-cicd-generale.md",
+      "type": "mermaid",
+      "modules": ["module-1"],
+      "concepts": ["pipeline", "ci-cd", "workflow"],
+      "statut": "complete"
+    },
+    "pipeline-github-actions": {
+      "fichier": "diagrammes/pipeline-github-actions.md", 
+      "type": "mermaid",
+      "modules": ["module-1"],
+      "concepts": ["github-actions", "workflow", "pipeline"],
+      "statut": "complete"
+    },
+    "architecture-tests-automatises": {
+      "fichier": "diagrammes/architecture-tests-automatises.md",
+      "type": "mermaid", 
+      "modules": ["module-1", "module-3"],
+      "concepts": ["pyramide-tests", "types-tests", "outils"],
+      "statut": "complete"
+    },
+    "ia-tests-workflow": {
+      "fichier": "diagrammes/ia-tests-workflow.md",
+      "type": "mermaid",
+      "modules": ["module-2"],
+      "concepts": ["ia", "ml", "auto-healing", "nlp"],
+      "statut": "complete"
+    },
+    "monitoring-dashboard-architecture": {
+      "fichier": "diagrammes/monitoring-dashboard-architecture.md",
+      "type": "mermaid",
+      "modules": ["module-4"],
+      "concepts": ["monitoring", "grafana", "prometheus", "alerting"],
+      "statut": "complete"
+    }
+  },
+  "captures_ecran": {
+    "github-actions-interface": {
+      "fichier": "captures-ecran/github-actions/interface-principale.md",
+      "outil": "GitHub Actions",
+      "modules": ["module-1"],
+      "exercices": ["exercice-1.1"],
+      "statut": "specification_complete",
+      "capture_requise": true
+    },
+    "testim-dashboard": {
+      "fichier": "captures-ecran/testim/dashboard-principal.md",
+      "outil": "Testim",
+      "modules": ["module-2"],
+      "exercices": ["exercice-2.1"],
+      "statut": "specification_complete",
+      "capture_requise": true
+    },
+    "grafana-dashboard": {
+      "fichier": "captures-ecran/grafana/dashboard-monitoring.md",
+      "outil": "Grafana",
+      "modules": ["module-4"],
+      "exercices": ["exercice-4.2"],
+      "statut": "specification_complete",
+      "capture_requise": true
+    }
+  },
+  "schemas": {
+    "concepts-ci-cd": {
+      "fichier": "schemas/concepts-ci-cd.md",
+      "type": "mermaid",
+      "modules": ["module-1"],
+      "concepts": ["ci-vs-cd", "types-tests", "feedback-loop"],
+      "statut": "complete"
+    },
+    "ia-dans-tests": {
+      "fichier": "schemas/ia-dans-tests.md", 
+      "type": "mermaid",
+      "modules": ["module-2"],
+      "concepts": ["auto-healing", "nlp", "anomalie-detection"],
+      "statut": "complete"
+    },
+    "tests-performance-securite": {
+      "fichier": "schemas/tests-performance-securite.md",
+      "type": "mermaid",
+      "modules": ["module-3"],
+      "concepts": ["load-testing", "sast-dast", "monitoring-securite"],
+      "statut": "complete"
+    },
+    "monitoring-alerting": {
+      "fichier": "schemas/monitoring-alerting.md",
+      "type": "mermaid", 
+      "modules": ["module-4"],
+      "concepts": ["architecture-monitoring", "niveaux-alerting", "cycle-alerte"],
+      "statut": "complete"
+    }
+  },
+  "actions_requises": {
+    "captures_manquantes": [
+      "jenkins-interface",
+      "docker-desktop", 
+      "applitools-dashboard",
+      "mabl-interface",
+      "selenium-grid",
+      "cypress-interface",
+      "jmeter-gui",
+      "owasp-zap-interface",
+      "snyk-dashboard",
+      "prometheus-interface",
+      "allure-reports"
+    ],
+    "optimisations": [
+      "annotations_captures",
+      "coherence_visuelle",
+      "versions_haute_resolution",
+      "formats_alternatifs"
+    ]
+  },
+  "integration": {
+    "supports_theoriques": {
+      "module-1": ["architecture-cicd-generale", "concepts-ci-cd"],
+      "module-2": ["ia-tests-workflow", "ia-dans-tests"],
+      "module-3": ["architecture-tests-automatises", "tests-performance-securite"],
+      "module-4": ["monitoring-dashboard-architecture", "monitoring-alerting"]
+    },
+    "exercices": {
+      "exercice-1.1": ["github-actions-interface", "pipeline-github-actions"],
+      "exercice-2.1": ["testim-dashboard", "ia-tests-workflow"],
+      "exercice-4.2": ["grafana-dashboard", "monitoring-dashboard-architecture"]
+    }
+  }
+}

@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCM Module 2.2 - Optimisation avec Machine Learning - Formation CI/CD</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1><a href="../index.html">Formation CI/CD</a></h1>
+            </div>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="../index.html">Accueil</a></li>
+                    <li><a href="qcm-intermediaires.html">QCM Intermédiaires</a></li>
+                    <li><a href="qcm-final.html">QCM Final</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="hero-section">
+                <div class="module-badge">QCM INTERMÉDIAIRE</div>
+                <h1 class="module-title">QCM Module 2.2 - Optimisation avec Machine Learning</h1>
+                <p class="module-description">Évaluation des connaissances sur l'optimisation des tests avec le machine learning, la génération automatique de cas de test et l'analyse prédictive</p>
+                <div class="module-meta">
+                    <span class="duration">⏱️ Durée: 25 minutes</span>
+                    <span class="difficulty">📊 Seuil: 70%</span>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <div class="qcm-instructions">
+                    <h3>📋 Instructions</h3>
+                    <ul>
+                        <li>Lisez attentivement chaque question avant de répondre</li><li>Pour les questions à choix multiples, une seule réponse est correcte</li><li>Pour les questions vrai/faux, cochez la case correspondante</li><li>Pour les questions d'association, reliez chaque élément de gauche à son correspondant de droite</li><li>Vous pouvez revenir sur vos réponses avant la validation finale</li><li>Ce QCM porte sur des concepts avancés de machine learning appliqué aux tests</li>
+                    </ul>
+                    <p><strong>Barème:</strong> Chaque question est notée selon sa difficulté : facile (1 point), moyen (1,5 points), difficile (2 points). Le seuil de réussite est fixé à 70%. L'accent est mis sur la compétence C19 (IA dans les tests).</p>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <div class="qcm-container" data-qcm-data='{"id":"qcm-module-2-ml-optimisation","titre":"QCM Module 2.2 - Optimisation avec Machine Learning","description":"Évaluation des connaissances sur l'optimisation des tests avec le machine learning, la génération automatique de cas de test et l'analyse prédictive","duree_minutes":25,"module":"module-2","section":"ml-optimisation","competences":["C8","C17","C19"],"questions":[{"id":"q1","type":"choix-multiple","question":"Dans le contexte de la génération automatique de cas de test avec NLP, que représente un 'prompt' ?","options":["Un fichier de configuration pour le modèle de langage","Une instruction textuelle donnée au modèle pour guider la génération","Un algorithme de validation des tests générés","Une métrique de qualité du code de test"],"reponse_correcte":1,"explication":"Un prompt est une instruction textuelle structurée donnée à un modèle de langage (comme GPT) pour guider la génération de contenu. Dans le contexte des tests, il décrit ce qu'on attend comme sortie (type de test, format, critères spécifiques).","competence":"C19","difficulte":"facile"},{"id":"q2","type":"vrai-faux","question":"Les modèles de machine learning pour la prédiction de défauts doivent être réentraînés régulièrement pour maintenir leur efficacité.","reponse_correcte":true,"explication":"Vrai. Les modèles de prédiction de défauts doivent être réentraînés régulièrement car les patterns de développement évoluent, de nouvelles technologies sont adoptées, et l'équipe change. Un modèle statique perd en précision avec le temps (concept drift).","competence":"C19","difficulte":"moyen"},{"id":"q3","type":"choix-multiple","question":"Quelle métrique de code est généralement la plus prédictive de la présence de bugs ?","options":["Le nombre de lignes de code","La complexité cyclomatique","Le nombre de commentaires","La longueur des noms de variables"],"reponse_correcte":1,"explication":"La complexité cyclomatique est généralement la métrique la plus prédictive car elle mesure le nombre de chemins d'exécution indépendants. Plus la complexité est élevée, plus il y a de risques d'erreurs logiques et plus le code est difficile à tester et maintenir.","competence":"C19","difficulte":"moyen"},{"id":"q4","type":"association","question":"Associez chaque algorithme de ML à son usage principal dans les tests :","elements_gauche":["Random Forest","Isolation Forest","Transformers (NLP)"],"elements_droite":["Génération automatique de cas de test à partir de spécifications","Prédiction des zones de code à risque de bugs","Détection d'anomalies dans les logs d'application"],"associations_correctes":[[0,1],[1,2],[2,0]],"explication":"Random Forest est excellent pour la prédiction de défauts (classification), Isolation Forest pour la détection d'anomalies (outliers), et les Transformers (GPT, BERT) pour la génération de texte et code à partir de spécifications.","competence":"C19","difficulte":"difficile"},{"id":"q5","type":"choix-multiple","question":"Dans l'analyse prédictive des zones à risque, que représente l'AUC-ROC ?","options":["La vitesse d'exécution du modèle de prédiction","La capacité du modèle à distinguer entre les classes (buggy/non-buggy)","Le nombre de features utilisées par le modèle","La taille du dataset d'entraînement"],"reponse_correcte":1,"explication":"L'AUC-ROC (Area Under the Curve - Receiver Operating Characteristic) mesure la capacité du modèle à distinguer entre les classes. Une valeur proche de 1 indique une excellente capacité de discrimination, 0.5 indique une performance aléatoire.","competence":"C19","difficulte":"difficile"},{"id":"q6","type":"vrai-faux","question":"La génération automatique de tests avec l'IA peut produire des tests syntaxiquement corrects mais sémantiquement incorrects.","reponse_correcte":true,"explication":"Vrai. Les modèles de langage peuvent générer du code syntaxiquement valide qui compile et s'exécute, mais qui ne teste pas réellement ce qui est attendu ou qui contient des assertions incorrectes. C'est pourquoi une validation humaine reste nécessaire.","competence":"C17","difficulte":"moyen"},{"id":"q7","type":"choix-multiple","question":"Quelle approche est recommandée pour valider la qualité des tests générés automatiquement ?","options":["Exécuter les tests et vérifier qu'ils passent","Compter le nombre de lignes de code générées","Analyser la couverture de code et la pertinence des assertions","Mesurer le temps d'exécution des tests"],"reponse_correcte":2,"explication":"La validation doit porter sur la couverture de code (est-ce que les tests exercent bien le code cible) et la pertinence des assertions (est-ce que les vérifications correspondent aux exigences). Un test qui passe n'est pas forcément un bon test.","competence":"C17","difficulte":"moyen"},{"id":"q8","type":"choix-multiple","question":"Dans un système de prédiction de défauts, que signifie un taux de 'faux positifs' élevé ?","options":["Le modèle prédit correctement la plupart des bugs","Le modèle signale beaucoup de fichiers comme risqués alors qu'ils ne le sont pas","Le modèle manque beaucoup de vrais bugs","Le modèle s'exécute trop lentement"],"reponse_correcte":1,"explication":"Un taux de faux positifs élevé signifie que le modèle signale de nombreux fichiers comme étant à risque alors qu'ils ne contiennent pas de bugs. Cela peut conduire à une perte de confiance et à un gaspillage de ressources sur des investigations inutiles.","competence":"C19","difficulte":"moyen"},{"id":"q9","type":"vrai-faux","question":"L'utilisation de modèles pré-entraînés (comme GPT) pour la génération de tests nécessite toujours un fine-tuning sur des données spécifiques au projet.","reponse_correcte":false,"explication":"Faux. Les modèles pré-entraînés peuvent souvent être utilisés directement avec des prompts bien conçus (few-shot learning) sans nécessiter de fine-tuning. Le fine-tuning peut améliorer les performances mais n'est pas toujours nécessaire, surtout pour des tâches génériques de génération de code.","competence":"C19","difficulte":"difficile"},{"id":"q10","type":"choix-multiple","question":"Quel est l'avantage principal de l'analyse prédictive des zones à risque par rapport aux méthodes traditionnelles de détection de bugs ?","options":["Elle élimine complètement le besoin de tests manuels","Elle permet d'identifier les problèmes potentiels avant qu'ils ne se manifestent","Elle accélère l'exécution des tests automatisés","Elle réduit la taille du code source"],"reponse_correcte":1,"explication":"L'analyse prédictive permet d'identifier proactivement les zones de code susceptibles de contenir des bugs avant qu'ils ne se manifestent en production. Cela permet de concentrer les efforts de test et de revue sur les zones les plus risquées.","competence":"C8","difficulte":"moyen"}],"scoring":{"total_points":100,"seuil_reussite":70,"ponderation_par_difficulte":{"facile":1,"moyen":1.5,"difficile":2},"repartition_competences":{"C8":20,"C17":30,"C19":50}},"instructions":{"duree":"Vous disposez de 25 minutes pour répondre aux 10 questions.","consignes":["Lisez attentivement chaque question avant de répondre","Pour les questions à choix multiples, une seule réponse est correcte","Pour les questions vrai/faux, cochez la case correspondante","Pour les questions d'association, reliez chaque élément de gauche à son correspondant de droite","Vous pouvez revenir sur vos réponses avant la validation finale","Ce QCM porte sur des concepts avancés de machine learning appliqué aux tests"],"bareme":"Chaque question est notée selon sa difficulté : facile (1 point), moyen (1,5 points), difficile (2 points). Le seuil de réussite est fixé à 70%. L'accent est mis sur la compétence C19 (IA dans les tests)."}}'>
+                    <!-- Le QCM sera généré dynamiquement par JavaScript -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Formation CI/CD - Tous droits réservés</p>
+            <div class="footer-links">
+                <a href="../guides/guide-formateur.html" class="footer-link">Guide Formateur</a>
+                <a href="../guides/guide-apprenant.html" class="footer-link">Guide Apprenant</a>
+                <a href="../index.html" class="footer-link">Accueil</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/scripts.js"></script>
+</body>
+</html>

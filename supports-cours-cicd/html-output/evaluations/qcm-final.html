@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCM Final - Formation CI/CD</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1><a href="../index.html">Formation CI/CD</a></h1>
+            </div>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="../index.html">Accueil</a></li>
+                    <li><a href="qcm-intermediaires.html">QCM Intermédiaires</a></li>
+                    <li><a href="#evaluation">Évaluation Finale</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="hero-section">
+                <div class="module-badge">ÉVALUATION FINALE</div>
+                <h1 class="module-title">QCM Final de Certification</h1>
+                <p class="module-description">Évaluation finale couvrant tous les modules de la formation CI/CD</p>
+                <div class="module-meta">
+                    <span class="duration">⏱️ Durée: 60 minutes</span>
+                    <span class="difficulty">📊 45 questions</span>
+                    <span class="difficulty">🎯 Certification ECF</span>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <div class="qcm-instructions">
+                    <h3>📋 Instructions Importantes</h3>
+                    <div class="alert alert-warning">
+                        <strong>⚠️ Attention:</strong> Cette évaluation finale est certifiante. Vous ne pourrez la passer qu'une seule fois.
+                    </div>
+                    <ul>
+                        <li>Vous disposez de 60 minutes pour répondre aux 45 questions</li>
+                        <li>Toutes les questions sont obligatoires</li>
+                        <li>Vous pouvez revenir sur vos réponses avant la validation finale</li>
+                        <li>Le seuil de réussite est fixé à 70%</li>
+                        <li>L'évaluation couvre toutes les compétences: C8, C17, C18, C19, C20, C33</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="evaluation" class="content-section">
+                <div class="qcm-container" data-qcm-data='{"id":"qcm-final-evaluation","titre":"QCM Final - Évaluation Complète CI/CD","description":"Évaluation finale des compétences acquises durant la formation CI/CD de 5 jours","duree_minutes":60,"type":"evaluation-finale","competences":["C8","C17","C18","C19","C20","C33"],"repartition_modules":{"module-1":8,"module-2":15,"module-3":15,"module-4":7},"questions":[{"id":"q1","module":"module-1","type":"choix-multiple","question":"Quelle est la différence principale entre l'intégration continue (CI) et le déploiement continu (CD) ?","options":["CI concerne les tests, CD concerne le déploiement automatisé","CI est manuel, CD est automatique","CI utilise Docker, CD utilise Kubernetes","Il n'y a aucune différence"],"reponse_correcte":0,"explication":"L'intégration continue (CI) se concentre sur l'intégration fréquente du code et l'exécution automatique des tests, tandis que le déploiement continu (CD) automatise le processus de déploiement en production.","competence":"C8","difficulte":"facile"},{"id":"q2","module":"module-1","type":"vrai-faux","question":"GitHub Actions permet uniquement d'exécuter des tests, pas de déployer des applications.","reponse_correcte":false,"explication":"GitHub Actions est une plateforme complète de CI/CD qui permet à la fois d'exécuter des tests, de construire des applications et de les déployer sur différents environnements.","competence":"C8","difficulte":"facile"},{"id":"q3","module":"module-1","type":"choix-multiple","question":"Quel est l'avantage principal de l'utilisation de Docker dans un pipeline CI/CD ?","options":["Réduction des coûts de développement","Isolation et reproductibilité des environnements","Amélioration des performances de l'application","Simplification du code source"],"reponse_correcte":1,"explication":"Docker permet de créer des environnements isolés et reproductibles, garantissant que l'application fonctionne de manière identique en développement, test et production.","competence":"C17","difficulte":"moyen"},{"id":"q4","module":"module-1","type":"association","question":"Associez chaque type de test à sa position dans la pyramide des tests :","elements_gauche":["Tests unitaires","Tests d'intégration","Tests E2E"],"elements_droite":["Base de la pyramide (nombreux et rapides)","Milieu de la pyramide (modérés)","Sommet de la pyramide (peu nombreux et lents)"],"associations_correctes":[[0,0],[1,1],[2,2]],"explication":"La pyramide des tests recommande de nombreux tests unitaires à la base, un nombre modéré de tests d'intégration au milieu, et peu de tests E2E au sommet.","competence":"C17","difficulte":"moyen"},{"id":"q5","module":"module-1","type":"choix-multiple","question":"Quelle pratique est recommandée pour optimiser les temps d'exécution des tests dans un pipeline CI/CD ?","options":["Exécuter tous les tests séquentiellement","Paralléliser l'exécution des tests","Réduire le nombre de tests","Exécuter les tests uniquement en production"],"reponse_correcte":1,"explication":"La parallélisation des tests permet de réduire significativement le temps total d'exécution du pipeline en utilisant plusieurs processeurs ou machines simultanément.","competence":"C8","difficulte":"moyen"}]}'>
+                    <!-- Le QCM sera généré dynamiquement par JavaScript -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Formation CI/CD - Tous droits réservés</p>
+            <div class="footer-links">
+                <a href="../guides/guide-formateur.html" class="footer-link">Guide Formateur</a>
+                <a href="../guides/guide-apprenant.html" class="footer-link">Guide Apprenant</a>
+                <a href="../index.html" class="footer-link">Accueil</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/scripts.js"></script>
+</body>
+</html>
